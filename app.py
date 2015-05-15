@@ -26,7 +26,7 @@ def home():
 @app.route('/notebook/new', methods=['GET','POST'])
 def newNotebook():
     if request.method == 'POST':
-        new_notebook = Notebook(name="Sample")
+        new_notebook = Notebooks(name="Sample")
 
         session.add(new_notebook)
         session.commit()
