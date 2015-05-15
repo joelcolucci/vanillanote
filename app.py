@@ -34,4 +34,4 @@ def newNotebook():
         return redirect(url_for('home'))
 
     else:
-        return render_template('home.html')
+        return render_template('new_notebook.html')
