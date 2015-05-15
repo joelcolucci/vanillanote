@@ -1,0 +1,57 @@
+/*------------------------------------*\
+    #THEME-STYLES
+\*------------------------------------*/
+
+.text-center {
+    text-align: center;
+}
+
+.text-left {
+    text-align: left;
+}
+
+.text-right {
+    text-align: right;
+}
+
+.copy-right {
+    font-size: 10px;
+    color: #999;
+}
+
+.form-group {
+    display: block;
+    padding: 5px 0;
+}
+
+.form-full {
+    width: 100%;
+    padding: 5px;
+}
+
+.btn-default {
+    display: inline-block;
+    padding: 5px 15px;
+    background: #20c05c;
+    color: #fff;
+    border: 1px solid #1fbc5a; 
+}
+
+.btn-default:hover {
+    background: #24d666;
+}
+
+.btn-link {
+    display: inline-block;
+    background: none;
+    text-decoration: underline;
+    border: none;
+}
+
+.hidden {
+    display: none;
+}
+
+.inline-block {
+    display: inline-block;
+}
