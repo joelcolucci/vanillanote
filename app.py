@@ -20,7 +20,7 @@ session = DBSession()
 
 @app.route('/')
 def home():
-    return 'hello, world'
+    return render_template('home.html')
 
 
 @app.route('/notebook/new', methods=['GET','POST'])
