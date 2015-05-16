@@ -48,6 +48,10 @@
     border: none;
 }
 
+.btn-signin {
+    padding: 15px;
+}
+
 .hidden {
     display: none;
 }
