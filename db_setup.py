@@ -16,5 +16,13 @@ class Notebooks(Base):
     name = Column(String(250), nullable=False)
 
 
+class Note(Base):
+    __tablename__ = 'notes'
+
+    id = Column(Integer, primary_key=True)
+    title = Column(String(250), nullable=False)
+    content = Column(String(500), nullable=False)
+
+
 engine = create_engine('postgres://thyucdfobkhbyq:Kwj60OMjv2z7ovelhZet-OWYzq@ec2-107-20-222-114.compute-1.amazonaws.com:5432/dci4hqej3ncibd')
 Base.metadata.create_all(engine)
