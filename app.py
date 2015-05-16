@@ -37,7 +37,7 @@ session = DBSession()
 
 
 # Create anti-forgery state token
-@app.route('/login')
+@app.route('/')
 def showLogin():
     state = ''.join(random.choice(string.ascii_uppercase + string.digits)
                     for x in xrange(32))
@@ -48,7 +48,7 @@ def showLogin():
     return render_template('login.html', STATE=state)
 
 
-@app.route('/')
+@app.route('/home')
 def home():
     return render_template('home.html')
 
