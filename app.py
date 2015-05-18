@@ -16,7 +16,7 @@ import json
 from sqlalchemy import create_engine
 from sqlalchemy.orm import sessionmaker
 
-from db_setup import Base, Notebooks
+from db_setup import Base, Notebook, User
 
 
 app = Flask(__name__)
@@ -64,7 +64,7 @@ def newNotebook():
         return redirect('/')
 
     if request.method == 'POST':
-        new_notebook = Notebooks(name="Sample")
+        new_notebook = Notebook, User(name="Sample")
 
         session.add(new_notebook)
         session.commit()
