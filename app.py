@@ -154,8 +154,7 @@ def gconnect():
         response.headers['Content-Type'] = 'application/json'
         return response
 
-    return 'hello, world'
-    # login_session['credentials'] = credentials # ERROR: THIS LINE IS causing "not JSON serializeable"
+    login_session['credentials'] = credentials # ERROR: THIS LINE IS causing "not JSON serializeable"
     login_session['gplus_id'] = gplus_id
 
     # Get user info via a request to google, server to server, mono e mono.
