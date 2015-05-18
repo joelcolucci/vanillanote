@@ -50,11 +50,19 @@ def showLogin():
 
 @app.route('/home')
 def home():
+    # If user not logged in redirect back to login
+    if 'username' not in login_session:
+        return redirect('/')
+
     return render_template('home.html')
 
 
 @app.route('/notebook/new', methods=['GET','POST'])
 def newNotebook():
+    # If user not logged in redirect back to home
+    if 'username' not in login_session:
+        return redirect('/')
+
     if request.method == 'POST':
         new_notebook = Notebooks(name="Sample")
 
