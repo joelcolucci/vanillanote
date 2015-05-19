@@ -57,6 +57,10 @@ body,
     right: 0;
 }
 
+.controls a {
+    text-decoration: none;
+}
+
 
 
 
@@ -90,18 +94,59 @@ body,
     cursor: pointer;
 }
 
+
+
+
+
 /*------------------------------------*\
     #MAIN-CONTENT-STYLES
 \*------------------------------------*/
 
 .main-content {
-    padding: 20px 20px 40px;
+    padding: 40px;
     position: absolute;
     top:  45px;
     bottom: 0;
     right: 0;
     left: 320px;
     overflow: scroll;
+}
+
+.note-input {
+    width: 100%;
+    resize: none;
+    border: none;
+    margin-bottom: 10px;
+    font-family: Helvetica, Arial, sans-serif;
+}
+
+.note-input:focus {
+    outline: 0;
+}
+
+.note-submit {
+    position: absolute;
+    top: 43px;
+    right: 40px;
+    padding: 5px 15px;
+    background-color: transparent;
+    text-decoration: underline;
+    border: none;
+    border-radius: 13px;
+}
+
+.note-submit:hover {
+    color: #000;
+}
+
+#note-input-title {
+    width: 200px;
+    border-bottom: 1px solid #f0f0f0;
+}
+
+#note-input-content {
+    height: 125px;
+
 }
 
 
