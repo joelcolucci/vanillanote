@@ -1,26 +1,39 @@
 {% extends "wrapper_main.html" %}
 {% block content %}
 
-<div class="container">
-    <div class="row">
-        <div class="col-4">
-            <h2>notebooks</h2>
-        </div>
-        <div class="col-8">
+<div class="wrapper">
+
+    <div class="tool-bar">
+        <h2 class="heading">notebooks</h2>
+        <div class="flash-box">
             <!-- flash messages will go here -->
+            this is a flash message
         </div>
-    </div>
-    <div class="row">
-        <div class="col-4">
-            <div class="list-notebooks">
-                <ul>
-                    <li>Work</li>
-                    <li>Programming</li>
-                    <li>Quotes</li>
-                </ul>
-            </div>
+
+        <div class="controls">
+            <a href="{{url_for('gdisconnect')}}">logout</a>
         </div>
-        <div class="col-8">
+    </div> <!-- end .tool-bar -->
+
+    <div class="side-bar">
+        <ul class="notebooks">
+            <li>Work</li>
+            <li>Programming</li>
+            <li>Quotes</li>
+        </ul>
+   </div> <!-- end .side-bar -->
+
+   <div class="main-content">
+        <div class="container-new-note">
+            <form>
+                <div class="form-group">
+                    <textarea></textarea>
+                </div>
+                <input type="submit" value="SUBMIT">
+            </form>
+        </div>
+
+        <div class="notes">
             <div class="note">
             </div>
             <div class="note">
@@ -28,7 +41,9 @@
             <div class="note">
             </div>
         </div>
-    </div>
-</div>
+
+    </div> <!-- end .main-content -->
+
+</div> <!-- end .wrapper -->
 
 {% endblock %}

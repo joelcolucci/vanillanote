@@ -6,3 +6,79 @@
     margin-bottom: 10px;
     box-shadow: 0 2px 5px rgba(0,0,0,0.26);
 }
+
+
+
+
+
+/*------------------------------------*\
+    #HEADINGS-STYLES
+\*------------------------------------*/
+
+.container-headings {
+    border-bottom: 1px solid #F0F0F0;
+}
+
+.container-headings > .col-4 {
+    border-right: 1px solid #F0F0F0;
+}
+
+.container-controls {
+    padding: 15px 0;
+}
+
+
+
+
+
+/*------------------------------------*\
+    #FORM-STYLES
+\*------------------------------------*/
+.form-group textarea {
+    width: 100%;
+}
+
+
+
+
+
+/*------------------------------------*\
+    #FLASH-STYLES
+\*------------------------------------*/
+
+.container-flash {
+    height: 65px;
+}
+
+
+
+
+
+/*------------------------------------*\
+    #NOTEBOOK-STYLES
+\*------------------------------------*/
+
+.container-notebooks {
+    border-right: 1px solid #F0F0F0;
+}
+
+.container-notebooks > .col-4 {
+    border-right: 1px solid #F0F0F0;
+}
+
+
+
+
+
+/*------------------------------------*\
+    #NOTE-STYLES
+\*------------------------------------*/
+
+.note {
+    min-height: 200px;
+    border-bottom: 1px solid #F0F0F0;
+}
+
+
+
+
