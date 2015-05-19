@@ -44,15 +44,9 @@ def showLogin():
 
     login_session['state'] = state
 
-    # return "The current session state is %s" % login_session['state']
-    return render_template('login.html', STATE=state)
-
-
-@app.route('/home')
-def home():
-    # If user not logged in redirect back to login
     if 'username' not in login_session:
-        return redirect('/')
+        # return "The current session state is %s" % login_session['state']
+        return render_template('login.html', STATE=state)
 
     return render_template('home.html')
 
