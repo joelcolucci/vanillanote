@@ -61,6 +61,10 @@ body,
     text-decoration: none;
 }
 
+.controls a:hover {
+    text-decoration: underline;
+}
+
 
 
 
@@ -146,10 +150,15 @@ body,
 
 #note-input-content {
     height: 125px;
-
 }
 
-
+.note {
+    min-height: 200px;
+    background: #fcfcfc;
+    margin-bottom: 5px;
+    border-radius: 1px;
+    border-bottom: 1px solid #F0F0F0;
+}
 
 
 
