@@ -118,7 +118,13 @@ body {
     background: #9575CD;
 }
 
-
+.sidebar-item a {
+    text-decoration: none;
+    color: #fff;
+    display: inline-block;
+    height: 100%;
+    width: 100%;
+}
 
 
 

@@ -6,16 +6,8 @@
     <!-- FORM with title content and save -->
  
             <form>
-                <input type="text" id="note-input-title" class="clear-input" name="title" placeholder="Title goes here" value="CS 51 Algorithms">
-                <textarea id="note-input-content" class="clear-input" name="content" placeholder="Write your note here...">Today we learned about algorithms and all the great things they can do.
-
-I wasn't surprised at all because thats the way the cookie crumbles.
-
-Today I'd like to find a way to surpass previous escapades.
-
-1. Test
-2. Test more
-3. Test even more.
+                <input type="text" id="note-input-title" class="clear-input" name="title" placeholder="Title goes here" value="{{ note.title }}">
+                <textarea id="note-input-content" class="clear-input" name="content" placeholder="Write your note here...">{{note.content}}
 </textarea>
                 <input type="submit" class="btn-default note-submit" value="save">
             </form>

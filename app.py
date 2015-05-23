@@ -97,30 +97,23 @@ def viewNotes(notebook_id):
 
     notes = session.query(Note).filter_by(notebook_id=notebook_id).all()
 
-    return render_template('view_notes.html', notes=notes, notebook_id=notebook_id)
+    note = {'title': 'title', 'content': 'hello'}
+
+    return render_template('view_notes.html', notes=notes, notebook_id=notebook_id, note=note)
 
 
 
 @app.route('/notebook/<int:notebook_id>/notes/<int:note_id>', methods=['GET','POST'])
-def viewNote(notebook_id):
+def viewNote(notebook_id, note_id):
     # If user not logged in redirect back to home
     if 'username' not in login_session:
         return redirect('/')
 
-    if request.method == 'POST':
-        title = request.form.get('title', "No named note")
-        content = request.form.get('content', 'hello, world')
+    notes = session.query(Note).filter_by(notebook_id=notebook_id).all()
 
-        note = Note(title=title, content=content, notebook_id=notebook_id)
-        
-        session.add(note)
-        session.commit()
+    note = session.query(Note).filter_by(id=note_id).one()
 
-        return redirect(url_for('viewNotes', notebook_id=notebook_id))
-
-    else:
-        notes = session.query(Note).filter_by(notebook_id=notebook_id).all()
-        return render_template('view_new_note.html', notes=notes, notebook_id=notebook_id)
+    return render_template('view_notes.html', notes=notes, notebook_id=notebook_id, note=note)
 
 
 @app.route('/notebook/<int:notebook_id>/notes/new', methods=['GET','POST'])

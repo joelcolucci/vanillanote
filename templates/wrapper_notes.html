@@ -24,10 +24,10 @@
     </div>
 
     <div class="sidebar">
-        <h2 class="sidebar-heading"><a href="/">Notebook</a> > <a href="{{url_for('viewNotes', notebook_id=notebook_id)}}">Notes</a></h2>
+        <h2 class="sidebar-heading"><a href="/">Notebooks</a> > <a href="{{url_for('viewNotes', notebook_id=notebook_id)}}">Notes</a></h2>
         <ul class="sidebar-items">
             {% for note in notes %}
-            <li class="sidebar-item">{{ note.title }}</li>
+            <li class="sidebar-item"><a href="{{url_for('viewNote', notebook_id=note.notebook_id, note_id=note.id)}}">{{ note.title }}</a></li>
             {% endfor %}
         </ul>
     </div>
