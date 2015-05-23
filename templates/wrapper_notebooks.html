@@ -1,0 +1,36 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <title>Vanilla Note</title>
+    <link href='http://fonts.googleapis.com/css?family=Roboto+Condensed|Courgette' rel='stylesheet' type='text/css'>
+    <link rel="stylesheet" href="//maxcdn.bootstrapcdn.com/font-awesome/4.3.0/css/font-awesome.min.css">
+    <link href="{{ url_for('static', filename='css/normalize.css') }}" rel="stylesheet">
+    <link href="{{ url_for('static', filename='css/layout.css') }}" rel="stylesheet">
+    <link href="{{ url_for('static', filename='css/theme.css') }}" rel="stylesheet">
+    <link href="{{ url_for('static', filename='css/styles.css') }}" rel="stylesheet">
+
+</head>
+<body>
+    <div class="primary-toolbar">
+        <div class="toolbar-section">
+            <h1 class="primary-toolbar-heading">Vanilla note</h1>
+        </div>
+        <div class="toolbar-section text-right">
+            <a href="{{url_for('gdisconnect')}}" class="link-primary">logout</a>
+        </div>
+    </div>
+    <div class="secondary-toolbar">
+        <h2 class="secondary-toolbar-heading">Notebooks</h2>
+    </div>
+
+    {% block content %}
+    {% endblock %}
+
+    <footer class="footer text-center">
+        <p class="copy-right"> Vanilla Note Copyright &copy; 2015</p>
+    </footer>
+</body>
+</html>
