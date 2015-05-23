@@ -50,13 +50,13 @@ def showLogin():
     return render_template('view_notebooks.html')
 
 
-@app.route('/notebooks', methods=['GET'])
+@app.route('/notebook', methods=['GET'])
 def viewNotebooks():
     # If user not logged in redirect back to home
     if 'username' not in login_session:
         return redirect('/')
 
-    return render_template('view_notebooks.html')
+    return render_template('view_notes.html')
 
 
 @app.route('/notebook/new', methods=['GET','POST'])

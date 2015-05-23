@@ -1,0 +1,48 @@
+{% extends "wrapper_main.html" %}
+{% block content %}
+
+<div class="primary-toolbar void">
+    <div class="toolbar-section">
+        <h1 class="primary-toolbar-heading">Vanilla note</h1>
+    </div>
+    <div class="toolbar-section text-right">
+        <a href="#" class="link-primary">logout</a>
+    </div>
+</div>
+
+<div class="sidebar">
+    <h2 class="sidebar-heading"><a href="/">Notebook</a> > Notes</h2>
+    <ul class="sidebar-items">
+        <li class="sidebar-item">CS 51 Algorithms</li>
+        <li class="sidebar-item">CS 101 Structures</li>
+        <li class="sidebar-item">CS 152 OS</li>
+        <li class="sidebar-item">Study Plan</li>
+        <li class="sidebar-item">Cheat sheet</li>
+    </ul>
+</div>
+
+<div class="container-note">
+
+    <!-- FORM with title content and save -->
+ 
+            <form>
+                <input type="text" id="note-input-title" class="note-input" name="title" placeholder="title" value="CS 51 Algorithms">
+                <textarea id="note-input-content" class="note-input" name="content" placeholder="write content here...">Today we learned about algorithms and all the great things they can do.
+
+I wasn't surprised at all because thats the way the cookie crumbles.
+
+Today I'd like to find a way to surpass previous escapades.
+
+1. Test
+2. Test more
+3. Test even more.
+</textarea>
+                <input type="submit" class="note-submit" value="save">
+            </form>
+
+</div>
+
+<div class="btn-arrow active">
+</div>
+
+{% endblock %}
