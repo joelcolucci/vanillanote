@@ -11,19 +11,17 @@
 </div>
 
 <div class="sidebar">
-    <h2 class="sidebar-heading"><a href="/">Notebook</a> > <a href="/notebook">Notes</a></h2>
+    <h2 class="sidebar-heading"><a href="/">Notebook</a> > <a href="{{url_for('showNotes', notebook_id=notebook_id)}}">Notes</a></h2>
     <ul class="sidebar-items">
-        <li class="sidebar-item">CS 51 Algorithms</li>
-        <li class="sidebar-item">CS 101 Structures</li>
-        <li class="sidebar-item">CS 152 OS</li>
-        <li class="sidebar-item">Study Plan</li>
-        <li class="sidebar-item">Cheat sheet</li>
+        {% for note in notes %}
+        <li class="sidebar-item">{{ note.title }}</li>
+        {% endfor %}
     </ul>
 </div>
 
 <div class="container-note">
 
-    <form>
+    <form method="POST">
         <input type="text" id="note-input-title" class="clear-input" name="title" placeholder="Title goes here">
         <textarea id="note-input-content" class="clear-input" name="content" placeholder="Write your note here...">
 </textarea>

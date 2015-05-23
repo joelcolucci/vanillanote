@@ -11,13 +11,11 @@
 </div>
 
 <div class="sidebar">
-    <h2 class="sidebar-heading"><a href="/">Notebook</a> > <a href="notebook">Notes</a></h2>
+    <h2 class="sidebar-heading"><a href="/">Notebook</a> > <a href="{{url_for('showNotes', notebook_id=notebook_id)}}">Notes</a></h2>
     <ul class="sidebar-items">
-        <li class="sidebar-item">CS 51 Algorithms</li>
-        <li class="sidebar-item">CS 101 Structures</li>
-        <li class="sidebar-item">CS 152 OS</li>
-        <li class="sidebar-item">Study Plan</li>
-        <li class="sidebar-item">Cheat sheet</li>
+        {% for note in notes %}
+        <li class="sidebar-item">{{ note.title }}</li>
+        {% endfor %}
     </ul>
 </div>
 
@@ -42,7 +40,7 @@ Today I'd like to find a way to surpass previous escapades.
 
 </div>
 
-<div class="btn-arrow active"><a href="notebook/note/new">+</a></div>
+<div class="btn-arrow active"><a href="{{url_for('newNote', notebook_id=notebook_id)}}">+</a></div>
 <footer class="footer void text-center">
 
     <p class="copy-right"> Vanilla Note Copyright &copy; 2015</p>
