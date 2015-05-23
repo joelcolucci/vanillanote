@@ -1,30 +1,11 @@
 {% extends "wrapper_notes.html" %}
 {% block content %}
 
-<div class="primary-toolbar void">
-    <div class="toolbar-section">
-        <h1 class="primary-toolbar-heading">Vanilla note</h1>
-    </div>
-    <div class="toolbar-section text-right">
-        <a href="#" class="link-primary">logout</a>
-    </div>
-</div>
-
-<div class="sidebar">
-    <h2 class="sidebar-heading"><a href="/">Notebook</a> > <a href="{{url_for('showNotes', notebook_id=notebook_id)}}">Notes</a></h2>
-    <ul class="sidebar-items">
-        {% for note in notes %}
-        <li class="sidebar-item">{{ note.title }}</li>
-        {% endfor %}
-    </ul>
-</div>
-
 <div class="container-note">
 
     <form method="POST">
         <input type="text" id="note-input-title" class="clear-input" name="title" placeholder="Title goes here">
-        <textarea id="note-input-content" class="clear-input" name="content" placeholder="Write your note here...">
-</textarea>
+        <textarea id="note-input-content" class="clear-input" name="content" placeholder="Write your note here..."></textarea>
         <input type="submit" class="btn-default note-submit" value="add new note">
     </form>
 

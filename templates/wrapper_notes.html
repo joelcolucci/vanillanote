@@ -12,9 +12,26 @@
     <link href="{{ url_for('static', filename='css/theme.css') }}" rel="stylesheet">
     <link href="{{ url_for('static', filename='css/layout.css') }}" rel="stylesheet">
     <link href="{{ url_for('static', filename='css/styles.css') }}" rel="stylesheet">
-
 </head>
 <body>
+    <div class="primary-toolbar void">
+        <div class="toolbar-section">
+            <h1 class="primary-toolbar-heading">Vanilla note</h1>
+        </div>
+        <div class="toolbar-section text-right">
+            <a href="#" class="link-primary">logout</a>
+        </div>
+    </div>
+
+    <div class="sidebar">
+        <h2 class="sidebar-heading"><a href="/">Notebook</a> > <a href="{{url_for('viewNotes', notebook_id=notebook_id)}}">Notes</a></h2>
+        <ul class="sidebar-items">
+            {% for note in notes %}
+            <li class="sidebar-item">{{ note.title }}</li>
+            {% endfor %}
+        </ul>
+    </div>
+
     {% block content %}
     {% endblock %}
 </body>

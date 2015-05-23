@@ -90,7 +90,7 @@ def deleteNotebook(notebook_id):
 
 
 @app.route("/notebook/<int:notebook_id>/notes")
-def showNotes(notebook_id):
+def viewNotes(notebook_id):
     # If user not logged in redirect back to home
     if 'username' not in login_session:
         return redirect('/')
@@ -98,6 +98,29 @@ def showNotes(notebook_id):
     notes = session.query(Note).filter_by(notebook_id=notebook_id).all()
 
     return render_template('view_notes.html', notes=notes, notebook_id=notebook_id)
+
+
+
+@app.route('/notebook/<int:notebook_id>/notes/<int:note_id>', methods=['GET','POST'])
+def viewNote(notebook_id):
+    # If user not logged in redirect back to home
+    if 'username' not in login_session:
+        return redirect('/')
+
+    if request.method == 'POST':
+        title = request.form.get('title', "No named note")
+        content = request.form.get('content', 'hello, world')
+
+        note = Note(title=title, content=content, notebook_id=notebook_id)
+        
+        session.add(note)
+        session.commit()
+
+        return redirect(url_for('viewNotes', notebook_id=notebook_id))
+
+    else:
+        notes = session.query(Note).filter_by(notebook_id=notebook_id).all()
+        return render_template('view_new_note.html', notes=notes, notebook_id=notebook_id)
 
 
 @app.route('/notebook/<int:notebook_id>/notes/new', methods=['GET','POST'])
@@ -115,11 +138,12 @@ def newNote(notebook_id):
         session.add(note)
         session.commit()
 
-        return redirect(url_for('showNotes', notebook_id=notebook_id))
+        return redirect(url_for('viewNotes', notebook_id=notebook_id))
 
     else:
         notes = session.query(Note).filter_by(notebook_id=notebook_id).all()
         return render_template('view_new_note.html', notes=notes, notebook_id=notebook_id)
+
 
 
 @app.route('/gconnect', methods=['POST'])
