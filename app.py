@@ -89,33 +89,6 @@ def deleteNotebook(notebook_id):
         return render_template('view_notebooks.html')
 
 
-@app.route("/notebook/<int:notebook_id>/notes")
-def viewNotes(notebook_id):
-    # If user not logged in redirect back to home
-    if 'username' not in login_session:
-        return redirect('/')
-
-    notes = session.query(Note).filter_by(notebook_id=notebook_id).all()
-
-    note = {'title': 'title', 'content': 'hello'}
-
-    return render_template('view_notes.html', notes=notes, notebook_id=notebook_id, note=note)
-
-
-
-@app.route('/notebook/<int:notebook_id>/notes/<int:note_id>', methods=['GET','POST'])
-def viewNote(notebook_id, note_id):
-    # If user not logged in redirect back to home
-    if 'username' not in login_session:
-        return redirect('/')
-
-    notes = session.query(Note).filter_by(notebook_id=notebook_id).all()
-
-    note = session.query(Note).filter_by(id=note_id).one()
-
-    return render_template('view_notes.html', notes=notes, notebook_id=notebook_id, note=note)
-
-
 @app.route('/notebook/<int:notebook_id>/notes/new', methods=['GET','POST'])
 def newNote(notebook_id):
     # If user not logged in redirect back to home
@@ -136,6 +109,47 @@ def newNote(notebook_id):
     else:
         notes = session.query(Note).filter_by(notebook_id=notebook_id).all()
         return render_template('view_new_note.html', notes=notes, notebook_id=notebook_id)
+
+
+@app.route('/notebook/<int:notebook_id>/notes/<int:note_id>/edit', methods=['POST'])
+def editNote(notebook_id, note_id):
+    # If user not logged in redirect back to home
+    if 'username' not in login_session:
+        return redirect('/')
+
+    if request.method == 'POST':
+        note = session.query(Note).filter_by(id=note_id).one()
+        note.title = request.form.get('title')
+        note.content = request.form.get('content')
+
+
+        return redirect(url_for('viewNote', notebook_id=notebook_id, note_id=note_id))
+
+
+@app.route("/notebook/<int:notebook_id>/notes")
+def viewNotes(notebook_id):
+    # If user not logged in redirect back to home
+    if 'username' not in login_session:
+        return redirect('/')
+
+    notes = session.query(Note).filter_by(notebook_id=notebook_id).all()
+
+    note = {'title': 'title', 'content': 'hello', 'id': 4}
+
+    return render_template('view_notes.html', notes=notes, notebook_id=notebook_id, note=note)
+
+
+@app.route('/notebook/<int:notebook_id>/notes/<int:note_id>', methods=['GET','POST'])
+def viewNote(notebook_id, note_id):
+    # If user not logged in redirect back to home
+    if 'username' not in login_session:
+        return redirect('/')
+
+    notes = session.query(Note).filter_by(notebook_id=notebook_id).all()
+
+    note = session.query(Note).filter_by(id=note_id).one()
+
+    return render_template('view_notes.html', notes=notes, notebook_id=notebook_id, note=note)
 
 
 

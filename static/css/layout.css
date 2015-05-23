@@ -109,7 +109,7 @@ body {
 }
 
 .sidebar-item {
-    padding: 15px;
+    
     color: #fff;
     cursor: pointer;
 }
@@ -122,8 +122,9 @@ body {
     text-decoration: none;
     color: #fff;
     display: inline-block;
-    height: 100%;
+
     width: 100%;
+    padding: 15px;
 }
 
 

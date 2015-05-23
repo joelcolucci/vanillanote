@@ -2,22 +2,17 @@
 {% block content %}
 
 <div class="container-note">
-
-    <!-- FORM with title content and save -->
  
-            <form>
-                <input type="text" id="note-input-title" class="clear-input" name="title" placeholder="Title goes here" value="{{ note.title }}">
-                <textarea id="note-input-content" class="clear-input" name="content" placeholder="Write your note here...">{{note.content}}
-</textarea>
-                <input type="submit" class="btn-default note-submit" value="save">
-            </form>
+    <form action="{{url_for('editNote', notebook_id=notebook_id, note_id = note.id)}}" method='POST'>
+        <input type="text" id="note-input-title" class="clear-input" name="title" placeholder="Title goes here" value="{{ note.title }}">
+        <textarea id="note-input-content" class="clear-input" name="content" placeholder="Write your note here...">{{note.content}}</textarea>
+        <input type="submit" class="btn-default note-submit" value="save changes">
+    </form>
 
 </div>
 
 <div class="btn-arrow active"><a href="{{url_for('newNote', notebook_id=notebook_id)}}">+</a></div>
 <footer class="footer void text-center">
-
     <p class="copy-right"> Vanilla Note Copyright &copy; 2015</p>
-
 </footer>
 {% endblock %}
