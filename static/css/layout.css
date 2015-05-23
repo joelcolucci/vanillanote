@@ -151,7 +151,10 @@ body {
 
 }
 
-
+.card-title {
+    margin-top: 35px;
+    color: #444;
+}
 
 
 
