@@ -47,8 +47,16 @@ def showLogin():
         # return "The current session state is %s" % login_session['state']
         return render_template('login.html', STATE=state)
 
-    return render_template('home.html')
-    
+    return render_template('view_notebooks.html')
+
+
+@app.route('/notebooks', methods=['GET'])
+def viewNotebooks():
+    # If user not logged in redirect back to home
+    if 'username' not in login_session:
+        return redirect('/')
+
+    return render_template('view_notebooks.html')
 
 
 @app.route('/notebook/new', methods=['GET','POST'])
