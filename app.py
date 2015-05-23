@@ -47,7 +47,7 @@ def showLogin():
         # return "The current session state is %s" % login_session['state']
         return render_template('login.html', STATE=state)
 
-    notebooks = sessionc.query(Notebook).all()
+    notebooks = session.query(Notebook).all()
     return render_template('view_notebooks.html', notebooks=notebooks)
 
 
@@ -68,6 +68,25 @@ def newNotebook():
 
     else:
         return render_template('view_new_notebook.html')
+
+
+@app.route('/notebook/delete/<int:notebook_id>/', methods=['POST'])
+def deleteNotebook(notebook_id):
+    # If user not logged in redirect back to home
+    if 'username' not in login_session:
+        return redirect('/')
+
+    if request.method == 'POST':
+        notebook = session.query(Notebook).filter_by(id=notebook_id).one()
+
+
+        session.delete(notebook)
+        session.commit()
+
+        return redirect(url_for('showLogin'))
+
+    else:
+        return render_template('view_notebooks.html')
 
 
 @app.route("/notebook/<int:notebook_id>/")

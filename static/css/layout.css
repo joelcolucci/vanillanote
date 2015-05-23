@@ -127,6 +127,7 @@ body {
 \*------------------------------------*/
 
 .card {
+    position: relative;
     display: inline-block;
     height: 250px;
     width: 225px;
@@ -156,7 +157,12 @@ body {
     color: #444;
 }
 
-
+.form-nb-delete {
+    position: absolute;
+    display: inline-block;
+    right: 0;
+    bottom: 0;
+}
 
 /*------------------------------------*\
     #VIEW-NEW-NOTEBOOKS-STYLES
