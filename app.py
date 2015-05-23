@@ -38,8 +38,8 @@ session = DBSession()
 
 # Create anti-forgery state token
 @app.route('/')
+@app.route('/notebooks')
 def showLogin():
-
     if 'username' not in login_session:
         state = ''.join(random.choice(string.ascii_uppercase + string.digits)
                     for x in xrange(32))
@@ -47,16 +47,8 @@ def showLogin():
         # return "The current session state is %s" % login_session['state']
         return render_template('login.html', STATE=state)
 
-    return render_template('view_notebooks.html')
-
-
-@app.route('/notebook', methods=['GET'])
-def viewNotebooks():
-    # If user not logged in redirect back to home
-    if 'username' not in login_session:
-        return redirect('/')
-
-    return render_template('view_notes.html')
+    notebooks = sessionc.query(Notebook).all()
+    return render_template('view_notebooks.html', notebooks=notebooks)
 
 
 @app.route('/notebook/new', methods=['GET','POST'])
@@ -66,15 +58,29 @@ def newNotebook():
         return redirect('/')
 
     if request.method == 'POST':
-        new_notebook = Notebook, User(name="Sample")
+        title = request.form.get('title', 'title')
+        new_notebook = Notebook(name=title)
 
         session.add(new_notebook)
         session.commit()
 
-        return redirect(url_for('home'))
+        return redirect(url_for('showLogin'))
 
     else:
         return render_template('view_new_notebook.html')
+
+
+@app.route("/notebook/<int:notebook_id>/")
+def showNotes(notebook_id):
+    # If user not logged in redirect back to home
+    if 'username' not in login_session:
+        return redirect('/')
+
+    notebook = session.query(Notebook).filter_by(id=notebook_id).one()
+    creator = getUserInfo(notebook.user_id)
+
+    notes = session.query(Notes).filter_by(notebook_id=notebook_id).all()
+
 
 
 @app.route('/notebook/note/new', methods=['GET','POST'])
