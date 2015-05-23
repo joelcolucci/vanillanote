@@ -215,14 +215,11 @@ body {
     margin-bottom: 0;
 }
 
-
-
 .note-submit {
     position: absolute;
-    top: 43px;
+    top: 58px;
     right: 40px;
     padding: 5px 15px;
-
 }
 
 #note-input-title {
@@ -370,7 +367,9 @@ body {
     text-decoration: none;
 }
 
+.btn-primary {
 
+}
 
 /*------------------------------------*\
     #FOOTER-STYLES

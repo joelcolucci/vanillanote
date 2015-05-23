@@ -77,6 +77,24 @@ def newNotebook():
         return render_template('view_new_notebook.html')
 
 
+@app.route('/notebook/note/new', methods=['GET','POST'])
+def newNote():
+    # If user not logged in redirect back to home
+    if 'username' not in login_session:
+        return redirect('/')
+
+    if request.method == 'POST':
+        new_notebook = Notebook, User(name="Sample")
+
+        session.add(new_notebook)
+        session.commit()
+
+        return redirect(url_for('home'))
+
+    else:
+        return render_template('view_new_note.html')
+
+
 @app.route('/gconnect', methods=['POST'])
 def gconnect():
     # When the client first requested the page we generated the "state" token
