@@ -74,7 +74,7 @@ def newNotebook():
         return redirect(url_for('home'))
 
     else:
-        return render_template('new_notebook.html')
+        return render_template('view_new_notebook.html')
 
 
 @app.route('/gconnect', methods=['POST'])

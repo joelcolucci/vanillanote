@@ -2,6 +2,10 @@
     #GENERAL-STYLES
 \*------------------------------------*/
 
+*, *:before, *:after {
+  box-sizing: border-box;
+}
+
 * {
     -moz-box-sizing: border-box;
     box-sizing: border-box;
@@ -68,7 +72,10 @@ body {
     padding-left: 15px;
 }
 
-
+.secondary-toolbar-heading a {
+    color: #000;
+    text-decoration: none;
+}
 
 
 
@@ -149,6 +156,43 @@ body {
 
 
 /*------------------------------------*\
+    #VIEW-NEW-NOTEBOOKS-STYLES
+\*------------------------------------*/
+
+.card-xl {
+    height: 325px;
+    width: 300px;
+    padding: 30px;
+    cursor: inherit;
+    position: relative;
+}
+
+.card-xl:hover {
+    opacity: inherit;
+}
+
+.notebook-controls {
+    position: absolute;
+    bottom: 15px;
+    left: 0;
+    width: 100%;
+}
+
+#title {
+    font-weight: bold;
+}
+
+.notebook-controls a,
+.notebook-controls input[type="submit"] {
+    background: #7C4DFF;
+    color: #fff;
+    border-radius: 2px;
+    width: 90px;
+}
+
+
+
+/*------------------------------------*\
     #VIEW-NOTES-STYLES
 \*------------------------------------*/
 
@@ -171,27 +215,14 @@ body {
     margin-bottom: 0;
 }
 
-.note-input {
-    width: 100%;
-    resize: none;
-    border: none;
-    margin-bottom: 10px;
-    font-family: Helvetica, Arial, sans-serif;
-}
 
-.note-input:focus {
-    outline: 0;
-}
 
 .note-submit {
     position: absolute;
     top: 43px;
     right: 40px;
     padding: 5px 15px;
-    background-color: transparent;
-    border: none;
-    border-radius: 13px;
-    color: #651FFF;
+
 }
 
 #note-input-title {
@@ -290,6 +321,16 @@ body {
     #HELPER-STYLES
 \*------------------------------------*/
 
+.fa-book {
+    padding-top: 50px;
+    color: #aaa;
+}
+
+
+/*------------------------------------*\
+    #HELPER-STYLES
+\*------------------------------------*/
+
 .link-primary {
     text-decoration: none;
     color: #fff;
@@ -308,6 +349,25 @@ body {
     left: 300px;
     right: 0;
     width: initial;
+}
+
+.clear-input {
+    width: 100%;
+    resize: none;
+    border: none;
+    margin-bottom: 10px;
+    font-family: Helvetica, Arial, sans-serif;
+}
+
+.clear-input:focus {
+    outline: 0;
+}
+
+.btn-default {
+    background-color: transparent;
+    border: none;
+    color: #651FFF;
+    text-decoration: none;
 }
 
 
