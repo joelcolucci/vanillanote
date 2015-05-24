@@ -2,7 +2,18 @@
 {% block content %}
 
 <div class="secondary-toolbar">
-    <h2 class="secondary-toolbar-heading"><a href="/">Notebooks</a></h2>
+    <div class="toolbar-section">
+        <h2 class="secondary-toolbar-heading"><a href="/">Notebooks</a></h2>
+    </div>
+    <div class="toolbar-section text-right">
+        {% with messages = get_flashed_messages() %}
+            {% if messages %}
+                {% for message in messages %}
+                    <h2 class="secondary-toolbar-flash">{{ message }}</h2>
+                {% endfor %}
+            {% endif %}
+        {% endwith %}
+    </div>
 </div>
 <div class="notebooks text-center">
     {% for notebook in notebooks %}

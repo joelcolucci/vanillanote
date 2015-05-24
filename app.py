@@ -64,6 +64,7 @@ def newNotebook():
         session.add(new_notebook)
         session.commit()
 
+        flash('New notebook "%s" succesfully created!' % new_notebook.name)
         return redirect(url_for('showLogin'))
 
     else:
@@ -81,6 +82,7 @@ def editNotebook(notebook_id):
     if request.method == 'POST':
         notebook.name = request.form.get('title')
 
+        flash('Notebook "%s" succesfully updated!' % notebook.name)
         return redirect(url_for('showLogin'))
 
     else:
@@ -99,6 +101,7 @@ def deleteNotebook(notebook_id):
         session.delete(notebook)
         session.commit()
 
+        flash('Notebook "%s" succesfully deleted!' % notebook.name)
         return redirect(url_for('showLogin'))
 
     else:
@@ -127,7 +130,7 @@ def newNote(notebook_id):
 
         # Get the unique ID of the note after flush.
         note_id = note.id
-
+        flash('New note "%s" succesfully created!' % note.title)
         return redirect(url_for('viewNote', notebook_id=notebook_id, note_id=note_id))
 
     else:
@@ -159,7 +162,7 @@ def editNote(notebook_id, note_id):
         note.title = request.form.get('title')
         note.content = request.form.get('content')
 
-
+        flash('Note "%s" succesfully updated!' % note.title)
         return redirect(url_for('viewNote', notebook_id=notebook_id, note_id=note_id))
 
 
@@ -175,6 +178,7 @@ def deleteNote(notebook_id, note_id):
         session.delete(note)
         session.commit()
 
+        flash('Note "%s" succesfully deleted!' % note.title)
         return redirect(url_for('newNote', notebook_id=notebook_id))
 
 

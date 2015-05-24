@@ -13,10 +13,16 @@
     <link href="{{ url_for('static', filename='css/layout.css') }}" rel="stylesheet">
     <link href="{{ url_for('static', filename='css/styles.css') }}" rel="stylesheet">
 </head>
-<body>
+<body class="notes-page">
     <div class="primary-toolbar void">
         <div class="toolbar-section">
-            <h1 class="primary-toolbar-heading">Vanilla note</h1>
+            {% with messages = get_flashed_messages() %}
+                {% if messages %}
+                    {% for message in messages %}
+                        <h2 class="primary-toolbar-flash">{{ message }}</h2>
+                    {% endfor %}
+                {% endif %}
+            {% endwith %}
         </div>
         <div class="toolbar-section text-right">
             <a href="#" class="link-primary">logout</a>

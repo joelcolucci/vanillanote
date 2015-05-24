@@ -44,10 +44,19 @@ body {
     z-index: 1;
 }
 
-.primary-toolbar-heading {
+.primary-toolbar-heading,
+.primary-toolbar-flash,
+.secondary-toolbar-flash {
     font-size: 18px;
     margin: 5px 10px;
 }
+
+.primary-toolbar-flash,
+.secondary-toolbar-flash {
+    color: #651FFF;
+    font-weight: normal;
+}
+
 
 .heading-xl {
     margin-top: 8px;
@@ -65,13 +74,32 @@ body {
     padding: 8px 5px 5px;
 }
 
-.login-page .toolbar-section {
-    vertical-align: top;
-}
+
+/*------------------------------------*\
+    #PAGE-STYLES
+\*------------------------------------*/
 
 .login-page {
     padding-top: 54px;
 }
+
+.login-page .toolbar-section {
+    vertical-align: top;
+}
+
+.notes-page .primary-toolbar {
+    left: 300px;
+    right: 0;
+    width: inherit;
+    height: 31px;
+}
+
+.notes-page .link-primary {
+    display: inline-block;
+    padding-top: 4px;
+}
+
+
 
 
 
@@ -83,7 +111,6 @@ body {
     background: #EDE7F6;
     padding: 5px;
     border-bottom: 1px solid #ddd;
-
 }
 
 .secondary-toolbar-heading {
@@ -94,6 +121,8 @@ body {
     color: #000;
     text-decoration: none;
 }
+
+
 
 
 
