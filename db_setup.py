@@ -27,7 +27,6 @@ class Notebook(Base):
     user_id = Column(Integer, ForeignKey('user.id'))
     user = relationship(User)
     
-
     @property
     def serialize(self):
         """Return object data in easily serializeable format"""
@@ -44,8 +43,8 @@ class Note(Base):
     title = Column(String(250), nullable=False)
     content = Column(String(500), nullable=False)
 
-    notebook_id = Column(Integer, ForeignKey('notebooks.id'))
-    restaurant = relationship(Notebook)
+    notebook_id = Column(Integer, ForeignKey('notebooks.id', ondelete="CASCADE"))
+    notebook = relationship(Notebook)
 
     user_id = Column(Integer, ForeignKey('user.id'))
     user = relationship(User)
