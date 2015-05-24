@@ -171,6 +171,15 @@ body {
     bottom: 0;
 }
 
+.notebook-edit {
+    display: inline-block;
+    position: absolute;
+    bottom: 13px;
+    right: 80px;
+    font-size: 16px;
+    padding: 5px 10px;
+}
+
 /*------------------------------------*\
     #VIEW-NEW-NOTEBOOKS-STYLES
 \*------------------------------------*/
@@ -336,7 +345,12 @@ body {
 
 .link-primary {
     text-decoration: none;
+    padding: 2px 5px;
     color: #fff;
+}
+
+.link-invert {
+    color: #651FFF;
 }
 
 .primary-toolbar.void {

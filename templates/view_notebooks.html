@@ -6,16 +6,16 @@
 </div>
 <div class="notebooks text-center">
     {% for notebook in notebooks %}
-    <a href="{{url_for('newNote', notebook_id=notebook.id)}}">
         <div class="card">
-            <i class="fa fa-book fa-5x"></i>
-            <h2 class="card-title">{{notebook.name}}</h2>
+            <a href="{{url_for('newNote', notebook_id=notebook.id)}}">
+                <i class="fa fa-book fa-5x"></i>
+                <h2 class="card-title">{{notebook.name}}</h2>
+            </a>
+            <a href="{{url_for('editNotebook', notebook_id=notebook.id)}}" class="link-primary link-invert notebook-edit">edit</a>
             <form action="{{url_for('deleteNotebook', notebook_id=notebook.id)}}" method="POST" class="form-nb-delete">
                 <input type="submit" value="delete" class="clear-input btn-default">
             </form>
         </div>
-
-    </a>
     {% endfor %}
 
 </div>

@@ -70,6 +70,23 @@ def newNotebook():
         return render_template('view_new_notebook.html')
 
 
+@app.route('/notebook/<int:notebook_id>/edit', methods=['GET', 'POST'])
+def editNotebook(notebook_id):
+    # If user not logged in redirect back to home
+    if 'username' not in login_session:
+        return redirect('/')
+
+    notebook = session.query(Notebook).filter_by(id=notebook_id).one()
+    
+    if request.method == 'POST':
+        notebook.name = request.form.get('title')
+
+        return redirect(url_for('showLogin'))
+
+    else:
+        return render_template('view_edit_notebook.html', notebook=notebook)
+
+
 @app.route('/notebook/delete/<int:notebook_id>/', methods=['POST'])
 def deleteNotebook(notebook_id):
     # If user not logged in redirect back to home
