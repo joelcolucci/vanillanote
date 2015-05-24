@@ -104,6 +104,7 @@ def deleteNotebook(notebook_id):
     else:
         return render_template('view_notebooks.html')
 
+
 @app.route("/notebook/<int:notebook_id>/notes", methods=['GET'])
 @app.route('/notebook/<int:notebook_id>/notes/new', methods=['GET','POST'])
 def newNote(notebook_id):
@@ -134,7 +135,6 @@ def newNote(notebook_id):
         return render_template('view_new_note.html', notes=notes, notebook_id=notebook_id)
 
 
-
 @app.route('/notebook/<int:notebook_id>/notes/<int:note_id>', methods=['GET'])
 def viewNote(notebook_id, note_id):
     # If user not logged in redirect back to home
@@ -146,7 +146,6 @@ def viewNote(notebook_id, note_id):
     note = session.query(Note).filter_by(id=note_id).one()
 
     return render_template('view_notes.html', notes=notes, notebook_id=notebook_id, note=note)
-
 
 
 @app.route('/notebook/<int:notebook_id>/notes/<int:note_id>/edit', methods=['POST'])
@@ -177,7 +176,6 @@ def deleteNote(notebook_id, note_id):
         session.commit()
 
         return redirect(url_for('newNote', notebook_id=notebook_id))
-
 
 
 @app.route('/gconnect', methods=['POST'])

@@ -7,51 +7,40 @@
     <title>Vanilla Note</title>
     <link href='http://fonts.googleapis.com/css?family=Roboto+Condensed|Courgette' rel='stylesheet' type='text/css'>
     <link href="{{ url_for('static', filename='css/normalize.css') }}" rel="stylesheet">
-    <link href="{{ url_for('static', filename='css/layout.css') }}" rel="stylesheet">
+
     <link href="{{ url_for('static', filename='css/theme.css') }}" rel="stylesheet">
+    <link href="{{ url_for('static', filename='css/layout.css') }}" rel="stylesheet">
     <link href="{{ url_for('static', filename='css/styles.css') }}" rel="stylesheet">
 
     <!--LOAD PRE-REQUISITES FOR GOOGLE SIGN IN -->
     <script src="//ajax.googleapis.com/ajax/libs/jquery/1.8.2/jquery.min.js"></script>
     <script src="//apis.google.com/js/platform.js?onload=start"></script>
 </head>
-<body>
-    <header class="main-header">
-        <div class="container">
-            <div class="row">
-                <div class="col-6">
-                    <h1 class="main-logo"><a href="/">Vanilla Note</a></h1>
-                </div>
-                <div class="col-6 text-right">
-                    <div class="btn-signin">
-                        <div id="signInButton">
-                            <span class="g-signin"
-                            data-scope="openid email"
-                            data-clientid="980973912000-75uth7aseggpkhdp099henelus6c23pv.apps.googleusercontent.com"
-                            data-redirecturi="postmessage"
-                            data-accesstype="offline"
-                            data-cookiepolicy="single_host_origin"
-                            data-callback="signInCallback"
-                            data-approvalprompt="force">
-                            </span>
-                        </div>
-                    </div>
-                </div>
+<body class="login-page">
+    <div class="primary-toolbar">
+        <div class="toolbar-section">
+            <h1 class="primary-toolbar-heading heading-xl">Vanilla note</h1>
+        </div>
+        <div class="toolbar-section text-right">
+            <div id="signInButton" class="btn-signin">
+                <span class="g-signin"
+                data-scope="openid email"
+                data-clientid="980973912000-75uth7aseggpkhdp099henelus6c23pv.apps.googleusercontent.com"
+                data-redirecturi="postmessage"
+                data-accesstype="offline"
+                data-cookiepolicy="single_host_origin"
+                data-callback="signInCallback"
+                data-approvalprompt="force">
+                </span>
             </div>
         </div>
+    </div>
 
-    </header>
     {% block content %}
     {% endblock %}
     <div id="result"></div>
-    <footer>
-        <div class="container">
-            <div class="row">
-                <div class="col-12">
-                    <p class="copy-right">Copyright &copy; 2015 Vanilla Note</p>
-                </div>
-            </div>
-        </div>
+    <footer class="footer text-center">
+        <p class="copy-right"> Vanilla Note Copyright &copy; 2015</p>
     </footer>
     <script>
         function signInCallback(authResult) {
