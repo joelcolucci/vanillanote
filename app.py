@@ -159,7 +159,7 @@ def deleteNote(notebook_id, note_id):
         session.delete(note)
         session.commit()
 
-        return redirect(url_for('showLogin'))
+        return redirect(url_for('newNote', notebook_id=notebook_id))
 
 
 

@@ -222,11 +222,11 @@ body {
     background: #fff
 }
 
-.container-note form {
+.container-note .form-note {
     height: 100%;
 }
 
-.container-note form textarea {
+.container-note .form-note textarea {
     height: 100%;
     margin-bottom: 0;
 }
@@ -234,7 +234,7 @@ body {
 .note-submit {
     position: absolute;
     top: 58px;
-    right: 40px;
+    right: 120px;
     padding: 5px 15px;
 }
 
@@ -243,20 +243,10 @@ body {
     border-bottom: 1px solid #f0f0f0;
 }
 
-.note-controls {
+.form-note-delete input {
     position: absolute;
-    bottom: 0;
-    right: 0;
-}
-
-.note-controls form {
-    display: inline-block;
-}
-
-.note-controls input {
-    background-color: transparent;
-    text-decoration: underline;
-    border: none;
+    top: 58px;
+    right: 40px;
 }
 
 
