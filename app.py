@@ -79,7 +79,6 @@ def deleteNotebook(notebook_id):
     if request.method == 'POST':
         notebook = session.query(Notebook).filter_by(id=notebook_id).one()
 
-
         session.delete(notebook)
         session.commit()
 
@@ -88,7 +87,7 @@ def deleteNotebook(notebook_id):
     else:
         return render_template('view_notebooks.html')
 
-
+@app.route("/notebook/<int:notebook_id>/notes", methods=['GET'])
 @app.route('/notebook/<int:notebook_id>/notes/new', methods=['GET','POST'])
 def newNote(notebook_id):
     # If user not logged in redirect back to home
@@ -100,15 +99,37 @@ def newNote(notebook_id):
         content = request.form.get('content', 'hello, world')
 
         note = Note(title=title, content=content, notebook_id=notebook_id)
-        
+
+        # Add note to database
         session.add(note)
+
+        # Flush so we can ask the unique ID assigned to the new note.
+        session.flush()
         session.commit()
 
-        return redirect(url_for('viewNotes', notebook_id=notebook_id))
+        # Get the unique ID of the note after flush.
+        note_id = note.id
+
+        return redirect(url_for('viewNote', notebook_id=notebook_id, note_id=note_id))
 
     else:
         notes = session.query(Note).filter_by(notebook_id=notebook_id).all()
         return render_template('view_new_note.html', notes=notes, notebook_id=notebook_id)
+
+
+
+@app.route('/notebook/<int:notebook_id>/notes/<int:note_id>', methods=['GET'])
+def viewNote(notebook_id, note_id):
+    # If user not logged in redirect back to home
+    if 'username' not in login_session:
+        return redirect('/')
+
+    notes = session.query(Note).filter_by(notebook_id=notebook_id).all()
+
+    note = session.query(Note).filter_by(id=note_id).one()
+
+    return render_template('view_notes.html', notes=notes, notebook_id=notebook_id, note=note)
+
 
 
 @app.route('/notebook/<int:notebook_id>/notes/<int:note_id>/edit', methods=['POST'])
@@ -126,30 +147,19 @@ def editNote(notebook_id, note_id):
         return redirect(url_for('viewNote', notebook_id=notebook_id, note_id=note_id))
 
 
-@app.route("/notebook/<int:notebook_id>/notes")
-def viewNotes(notebook_id):
+@app.route('/notebook/<int:notebook_id>/notes/<int:note_id>/delete', methods=['POST'])
+def deleteNote(notebook_id, note_id):
     # If user not logged in redirect back to home
     if 'username' not in login_session:
         return redirect('/')
 
-    notes = session.query(Note).filter_by(notebook_id=notebook_id).all()
+    if request.method == 'POST':
+        note = session.query(Note).filter_by(id=note_id).one()
 
-    note = {'title': 'title', 'content': 'hello', 'id': 4}
+        session.delete(note)
+        session.commit()
 
-    return render_template('view_notes.html', notes=notes, notebook_id=notebook_id, note=note)
-
-
-@app.route('/notebook/<int:notebook_id>/notes/<int:note_id>', methods=['GET','POST'])
-def viewNote(notebook_id, note_id):
-    # If user not logged in redirect back to home
-    if 'username' not in login_session:
-        return redirect('/')
-
-    notes = session.query(Note).filter_by(notebook_id=notebook_id).all()
-
-    note = session.query(Note).filter_by(id=note_id).one()
-
-    return render_template('view_notes.html', notes=notes, notebook_id=notebook_id, note=note)
+        return redirect(url_for('showLogin'))
 
 
 
