@@ -47,7 +47,14 @@ def showLogin():
         # return "The current session state is %s" % login_session['state']
         return render_template('login.html', STATE=state)
 
-    notebooks = session.query(Notebook).all()
+    user_id = login_session['user_id']
+    notebooks = session.query(Notebook).filter_by(user_id=user_id).all()
+
+    #TODO: Filter Notebooks by user_id
+
+    #TODO: Before edit/delete check that user is owner of record
+    #https://github.com/udacity/ud330/blob/master/Lesson3/step3/project.py
+    
     return render_template('view_notebooks.html', notebooks=notebooks)
 
 
@@ -59,7 +66,8 @@ def newNotebook():
 
     if request.method == 'POST':
         title = request.form.get('title', 'title')
-        new_notebook = Notebook(name=title)
+        new_notebook = Notebook(name=title,
+                                user_id=login_session['user_id'])
 
         session.add(new_notebook)
         session.commit()
@@ -78,7 +86,13 @@ def editNotebook(notebook_id):
         return redirect('/')
 
     notebook = session.query(Notebook).filter_by(id=notebook_id).one()
-    
+
+    #USER: Verify
+    if notebook.user_id != login_session['user_id']:
+        # Does not have permission to edit, view or delete
+        flash('You do not have permission!')
+        return redirect(url_for('showLogin'))
+
     if request.method == 'POST':
         notebook.name = request.form.get('title')
 
@@ -95,8 +109,15 @@ def deleteNotebook(notebook_id):
     if 'username' not in login_session:
         return redirect('/')
 
+    notebook = session.query(Notebook).filter_by(id=notebook_id).one()
+
+    #USER: Verify
+    if notebook.user_id != login_session['user_id']:
+        # Does not have permission to edit, view or delete
+        flash('You do not have permission!')
+        return redirect(url_for('showLogin'))
+
     if request.method == 'POST':
-        notebook = session.query(Notebook).filter_by(id=notebook_id).one()
 
         session.delete(notebook)
         session.commit()
@@ -115,16 +136,27 @@ def newNote(notebook_id):
     if 'username' not in login_session:
         return redirect('/')
 
+    notebook = session.query(Notebook).filter_by(id=notebook_id).one()
+
+    #USER: Verify
+    if notebook.user_id != login_session['user_id']:
+        # Does not have permission to edit, view or delete
+        flash('You do not have permission!')
+        return redirect(url_for('showLogin'))
+
     if request.method == 'POST':
         title = request.form.get('title', "No named note")
         content = request.form.get('content', 'hello, world')
 
-        note = Note(title=title, content=content, notebook_id=notebook_id)
+        note = Note(title=title, content=content, notebook_id=notebook_id,
+                    user_id=login_session['user_id'])
 
         # Add note to database
         session.add(note)
 
         # Flush so we can ask the unique ID assigned to the new note.
+        #TODO: May not need to use flush according to docs commit will auto flush
+        # http://docs.sqlalchemy.org/en/latest/orm/tutorial.html#adding-new-objects
         session.flush()
         session.commit()
 
@@ -147,6 +179,12 @@ def viewNote(notebook_id, note_id):
     notes = session.query(Note).filter_by(notebook_id=notebook_id).all()
 
     note = session.query(Note).filter_by(id=note_id).one()
+    
+    #USER: Verify
+    if note.user_id != login_session['user_id']:
+        # Does not have permission to edit, view or delete
+        flash('You do not have permission!')
+        return redirect(url_for('showLogin'))
 
     return render_template('view_notes.html', notes=notes, notebook_id=notebook_id, note=note)
 
@@ -156,9 +194,15 @@ def editNote(notebook_id, note_id):
     # If user not logged in redirect back to home
     if 'username' not in login_session:
         return redirect('/')
+    note = session.query(Note).filter_by(id=note_id).one()
+
+    #USER: Verify
+    if note.user_id != login_session['user_id']:
+        # Does not have permission to edit, view or delete
+        flash('You do not have permission!')
+        return redirect(url_for('showLogin'))
 
     if request.method == 'POST':
-        note = session.query(Note).filter_by(id=note_id).one()
         note.title = request.form.get('title')
         note.content = request.form.get('content')
 
@@ -171,15 +215,43 @@ def deleteNote(notebook_id, note_id):
     # If user not logged in redirect back to home
     if 'username' not in login_session:
         return redirect('/')
+    note = session.query(Note).filter_by(id=note_id).one()
+
+    #USER: Verify
+    if note.user_id != login_session['user_id']:
+        # Does not have permission to edit, view or delete
+        flash('You do not have permission!')
+        return redirect(url_for('showLogin'))
 
     if request.method == 'POST':
-        note = session.query(Note).filter_by(id=note_id).one()
-
         session.delete(note)
         session.commit()
 
         flash('Note "%s" succesfully deleted!' % note.title)
         return redirect(url_for('newNote', notebook_id=notebook_id))
+
+
+# User Helper Functions
+def createUser(login_session):
+    newUser = User(name=login_session['username'], email=login_session[
+                   'email'], picture=login_session['picture'])
+    session.add(newUser)
+    session.commit()
+    user = session.query(User).filter_by(email=login_session['email']).one()
+    return user.id
+
+
+def getUserInfo(user_id):
+    user = session.query(User).filter_by(id=user_id).one()
+    return user
+
+
+def getUserID(email):
+    try:
+        user = session.query(User).filter_by(email=email).one()
+        return user.id
+    except:
+        return None
 
 
 @app.route('/gconnect', methods=['POST'])
@@ -283,6 +355,13 @@ def gconnect():
     login_session['picture'] = data['picture']
     login_session['email'] = data['email']
 
+    # see if user exists, if it doesn't make a new one
+    user_id = getUserID(data["email"])
+    if not user_id:
+        user_id = createUser(login_session)
+
+    login_session['user_id'] = user_id
+
     output = ''
     output += '<h1>Welcome, '
     output += login_session['username']
@@ -293,31 +372,6 @@ def gconnect():
     flash("you are now logged in as %s" % login_session['username'])
     print "done!"
     return output
-
-
-# User Helper Functions
-
-
-def createUser(login_session):
-    newUser = User(name=login_session['username'], email=login_session[
-                   'email'], picture=login_session['picture'])
-    session.add(newUser)
-    session.commit()
-    user = session.query(User).filter_by(email=login_session['email']).one()
-    return user.id
-
-
-def getUserInfo(user_id):
-    user = session.query(User).filter_by(id=user_id).one()
-    return user
-
-
-def getUserID(email):
-    try:
-        user = session.query(User).filter_by(email=email).one()
-        return user.id
-    except:
-        return None
 
 
 #DISCONNECT - Revoke a current user's token and reset their login_session
@@ -366,3 +420,17 @@ def gdisconnect():
         response.headers['Content-Type'] = 'application/json'
 
         return response
+
+
+@app.route('/forceout')
+def forceOut():
+    del login_session['credentials']
+    del login_session['gplus_id']
+    del login_session['username']
+    del login_session['email']
+    del login_session['picture']
+
+    response = make_response(json.dumps('Successfully disconnected.'), 200)
+    response.headers['Content-Type'] = 'application/json'
+
+    return response
