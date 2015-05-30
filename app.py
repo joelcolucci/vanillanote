@@ -1,6 +1,5 @@
 import os
 import random
-
 import string
 
 from flask import Flask, render_template, request, url_for, redirect, jsonify, flash
