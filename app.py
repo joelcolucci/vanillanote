@@ -431,10 +431,8 @@ def gdisconnect():
         del login_session['picture']
 
         # Notify user they were disconnected successfully.
-        response = make_response(json.dumps('Successfully disconnected.'), 200)
-        response.headers['Content-Type'] = 'application/json'
-
-        return response
+        flash("Successfully disconnected!")
+        return redirect(url_for('showLogin'))
 
     else:
         # Handle if request to revoke token failed.
