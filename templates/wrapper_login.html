@@ -73,16 +73,7 @@
                         // Handle or verify the server response if necessary.
                         if (result) {
                             $('.logging-in').attr('style', 'display:none');
-
-                            var html_nodes = $.parseHTML(result);
-                            var img = html_nodes[1];
-                            img.style.height = '30px';
-                            img.style.width = '30px';
-                  
-                            var greeting = html_nodes[0];
-
-                            $('#result').append(greeting);
-                            $('#result').append(img);
+                            $('#result').html(result);
                 
                             setTimeout(function() {
                                 window.location.href = "/";
