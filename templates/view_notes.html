@@ -6,13 +6,29 @@
     <form action="{{url_for('editNote', notebook_id=notebook_id, note_id=note.id)}}" method='POST' class="form-note">
         <input type="text" id="note-input-title" class="clear-input" name="title" placeholder="Title goes here" value="{{ note.title }}">
         <textarea id="note-input-content" class="clear-input" name="content" placeholder="Write your note here...">{{note.content}}</textarea>
-        <input type="submit" class="btn-default note-submit" value="save changes">
+        <input type="submit" class="btn btn-primary note-submit" value="Save changes">
     </form>
-    <form action="{{url_for('deleteNote', notebook_id=notebook_id, note_id=note.id)}}" method="POST" class="form-note-delete">
-        <input type="submit" class="btn-default note-submit" value="delete">
-    </form>
+
+    <a href="{{url_for('deleteNote', notebook_id=notebook_id, note_id=note.id)}}" class="link-primary link-invert link-note-delete">Delete</a>
 
 </div>
 
+{% if show_modal %}
+<div class="modal">
+    <div class="card modal-card">
+        <div class="card-content">
+            <h2 class="new-title">Are you sure?</h2>
+        </div>
+        <div class="card-content">
+            <form method="POST">
+                <div class="notebook-controls">
+                    <input type="submit" value="Yes" class="btn btn-primary">
+                    <a href="{{url_for('viewNote', notebook_id=note.notebook_id, note_id=note.id)}}" class="btn btn-primary">Cancel</a>
+                </div>
+            </form>
+        </div>
+    </div>
+</div>
+{% endif %}
 {% endblock %}
 

@@ -210,7 +210,7 @@ def editNote(notebook_id, note_id):
         return redirect(url_for('viewNote', notebook_id=notebook_id, note_id=note_id))
 
 
-@app.route('/notebook/<int:notebook_id>/notes/<int:note_id>/delete', methods=['POST'])
+@app.route('/notebook/<int:notebook_id>/notes/<int:note_id>/delete', methods=['GET','POST'])
 def deleteNote(notebook_id, note_id):
     # If user not logged in redirect back to home
     if 'username' not in login_session:
@@ -229,6 +229,14 @@ def deleteNote(notebook_id, note_id):
 
         flash('Note "%s" succesfully deleted!' % note.title)
         return redirect(url_for('newNote', notebook_id=notebook_id))
+
+    else:
+        notes = session.query(Note).filter_by(notebook_id=notebook_id).all()
+        return render_template('view_notes.html',
+                                notes=notes,
+                                notebook_id=notebook_id,
+                                note=note,
+                                show_modal=True)
 
 
 # User Helper Functions

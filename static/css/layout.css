@@ -9,9 +9,7 @@
 * {
     -moz-box-sizing: border-box;
     box-sizing: border-box;
-    font-family: 'Roboto Condensed', sans-serif;
-      font-family: 'Lato', sans-serif;
-    -webkit-font-smoothing: antialiased;
+    font-family: 'Lato', sans-serif;
 }
 
 html,
@@ -28,6 +26,11 @@ body {
 
 
 
+
+/*------------------------------------*\
+    WARNING THIS CSS IS A DISASTER ZONE
+    REFACTOR NEEDED YESTERDAY
+\*------------------------------------*/
 
 .btn-login {
     display: inline-block;
@@ -322,6 +325,11 @@ body {
     color: #fff;
     font-size: 22px;
 }
+
+
+
+
+
 /*------------------------------------*\
     #VIEW-NEW-NOTEBOOKS-STYLES
 \*------------------------------------*/
@@ -333,14 +341,6 @@ body {
     width: 100%;
 }
 
-.notebook-controls a,
-.notebook-controls input[type="submit"] {
-    background: #1976D2;
-    color: #fff;
-    border-radius: 2px;
-    width: 90px;
-}
-
 .title-edit {
     width: 90%;
     resize: none;
@@ -348,6 +348,28 @@ body {
     padding: 10px;
 }
 
+.btn,
+.btn-default {
+    display: inline-block;
+    background-color: transparent;
+    border: none;
+    color: #1565C0;
+    text-decoration: none;
+}
+
+.btn-primary {
+    background: #1976D2;
+    color: #fff;
+    border-radius: 2px;
+    min-width: 90px;
+    padding: 5px 10px;
+}
+
+.btn:hover,
+.btn-default:hover,
+.btn-primary:hover {
+    background: #1E88E5;
+}
 
 
 
@@ -472,13 +494,11 @@ body {
     border-bottom: 1px solid #f0f0f0;
 }
 
-.form-note-delete input {
+.link-note-delete {
     position: absolute;
     top: 58px;
     right: 40px;
 }
-
-
 
 
 
@@ -538,9 +558,7 @@ body {
     text-decoration: none;
 }
 
-.btn-primary {
 
-}
 
 /*------------------------------------*\
     #FOOTER-STYLES
