@@ -90,7 +90,7 @@ body {
     display: inline-block;
     height: 32px;
     width: 32px;
-    padding: 6px 0 0;
+    padding: 5px 0 0;
     background: #2196F3;
     color: #fff;
     border-radius: 50%;
@@ -114,8 +114,22 @@ body {
 }
 
 .info-card {
-    height: 18px;
-    background: #2196F3;
+    border-top: 18px solid #2196f3;
+}
+
+.info-card > * {
+    vertical-align: top;
+}
+
+.info-card p {
+    display: inline-block;
+    width: 80%
+}
+
+.icon {
+    display: inline-block;
+    margin: 16px 16px 0 16px;
+    color: #555;
 }
 
 
@@ -529,6 +543,7 @@ body {
 .footer {
     position: absolute;
     bottom: 0;
-    width: 100%;
+    left: 0;
+    right: 0;
     font-family: 'Courgette', cursive;
 }
