@@ -33,6 +33,8 @@ class Notebook(Base):
         return {
             'name': self.name,
             'id': self.id,
+            'user_id': self.user_id,
+            'notes': []
         }
 
 
@@ -56,6 +58,8 @@ class Note(Base):
             'title': self.title,
             'content': self.content,
             'id': self.id,
+            'user_id': self.user_id,
+            'notebook_id': self.notebook_id
         }
 
 

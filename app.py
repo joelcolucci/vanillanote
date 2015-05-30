@@ -1,5 +1,6 @@
 import os
 import random
+
 import string
 
 from flask import Flask, render_template, request, url_for, redirect, jsonify, flash
@@ -289,6 +290,89 @@ def getUserID(email):
         return user.id
     except:
         return None
+
+
+@app.route('/data.json', methods=['GET'])
+def jsonDataAll():
+    # If no user is logged in redirect back to login page.
+    if 'username' not in login_session:
+        return redirect('/')
+
+    user_id = login_session['user_id']
+
+    # Query all notebooks owned by user_id.
+    notebooks = session.query(Notebook).filter_by(user_id=user_id).all()
+
+    # Convert notebook objects to list of serialize representations.
+    notebooks_list = [notebook.serialize for notebook in notebooks]
+    notebooks_dict = {}
+
+    # Convert list of notebook objects into dict of notebook objs.
+    for notebook in notebooks_list:
+        notebooks_dict[notebook['id']] = notebook
+
+    # Query all notes owned by user_id.
+    notes = session.query(Note).filter_by(user_id=user_id).all()
+
+    # Get serialized note and add each note to appropriate notebook.
+    for note in notes:
+        note_dict = note.serialize
+
+        nb_id = note_dict['notebook_id']
+        if nb_id in notebooks_dict:
+            notebooks_dict[nb_id]['notes'].append(note_dict)
+
+    return jsonify(notebooks=notebooks_dict)
+
+
+@app.route('/notebook/<int:notebook_id>/data.json', methods=['GET'])
+def jsonDataNotebook(notebook_id):
+    # If no user is logged in redirect back to login page.
+    if 'username' not in login_session:
+        return redirect('/')
+
+    # Query for notebook id owned by user_id.
+    notebook = session.query(Notebook).filter_by(id=notebook_id).one()
+
+    # Verify that user owns note they are attempting to access.
+    if notebook.user_id != login_session['user_id']:
+        # Does not have permission to edit, view or delete
+        flash('You do not have permission!')
+        return redirect(url_for('showLogin'))
+
+    # Query for all notes by notebook id.
+    notes = session.query(Note).filter_by(notebook_id=notebook_id).all()
+    note_list = [note.serialize for note in notes]
+
+    # Get notebook object as dict.
+    notebook_dict = notebook.serialize
+
+    # Add notes.
+    notebook_dict['notes'] = note_list
+
+    return jsonify(notebook=notebook_dict)
+
+
+@app.route('/notebook/<int:notebook_id>/notes/data.json', methods=['GET'])
+def jsonDataNotes(notebook_id):
+    # If no user is logged in redirect back to login page.
+    if 'username' not in login_session:
+        return redirect('/')
+
+    # Query for notebook id owned by user_id.
+    notebook = session.query(Notebook).filter_by(id=notebook_id).one()
+
+    # Verify that user owns note they are attempting to access.
+    if notebook.user_id != login_session['user_id']:
+        # Does not have permission to edit, view or delete
+        flash('You do not have permission!')
+        return redirect(url_for('showLogin'))
+
+    # Query for all notes by notebook id.
+    notes = session.query(Note).filter_by(notebook_id=notebook_id).all()
+    note_list = [note.serialize for note in notes]
+
+    return jsonify(notes=note_list)
 
 
 @app.route('/gconnect', methods=['POST'])
