@@ -1,7 +1,6 @@
 import os
 import random
 import string
-import logging
 
 from flask import Flask, render_template, request, url_for, redirect, jsonify, flash
 from flask import session as login_session
@@ -42,8 +41,7 @@ def showLogin():
     # If no user is logged in redirect back to login page.
     if 'username' not in login_session:
         # Create anti-forgery state token.
-        state = ''.join(random.choice(string.ascii_uppercase + string.digits)
-                    for x in xrange(32))
+        state = ''.join(random.choice(string.ascii_uppercase + string.digits) for x in xrange(32))
         login_session['state'] = state
 
         return render_template('login.html', STATE=state)
@@ -52,11 +50,11 @@ def showLogin():
 
     # Query for all notebooks owned by user.
     notebooks = session.query(Notebook).filter_by(user_id=user_id).all()
-    
+
     return render_template('view_notebooks.html', notebooks=notebooks)
 
 
-@app.route('/notebook/new', methods=['GET','POST'])
+@app.route('/notebook/new', methods=['GET', 'POST'])
 def newNotebook():
     # If no user is logged in redirect back to login page.
     if 'username' not in login_session:
@@ -136,7 +134,7 @@ def deleteNotebook(notebook_id):
 
 
 @app.route("/notebook/<int:notebook_id>/notes", methods=['GET'])
-@app.route('/notebook/<int:notebook_id>/notes/new', methods=['GET','POST'])
+@app.route('/notebook/<int:notebook_id>/notes/new', methods=['GET', 'POST'])
 def newNote(notebook_id):
     # If no user is logged in redirect back to login page.
     if 'username' not in login_session:
@@ -164,7 +162,7 @@ def newNote(notebook_id):
         session.add(note)
         session.commit()
 
-        # We can only accesss auto generated 'id' property after committing 
+        # We can only accesss auto generated 'id' property after committing
         # note to db.
         note_id = note.id
 
@@ -190,7 +188,7 @@ def viewNote(notebook_id, note_id):
 
     # Query for note by note id passed in via path.
     note = session.query(Note).filter_by(id=note_id).one()
-    
+
     # Verify that user owns note they are attempting to access.
     if note.user_id != login_session['user_id']:
         # Notify user they do not have permission to access.
@@ -206,7 +204,7 @@ def editNote(notebook_id, note_id):
     if 'username' not in login_session:
         return redirect('/')
 
-    # Query for note by note id passed in via path.    
+    # Query for note by note id passed in via path.
     note = session.query(Note).filter_by(id=note_id).one()
 
     # Verify that user owns note they are attempting to access.
@@ -225,7 +223,7 @@ def editNote(notebook_id, note_id):
         return redirect(url_for('viewNote', notebook_id=notebook_id, note_id=note_id))
 
 
-@app.route('/notebook/<int:notebook_id>/notes/<int:note_id>/delete', methods=['GET','POST'])
+@app.route('/notebook/<int:notebook_id>/notes/<int:note_id>/delete', methods=['GET', 'POST'])
 def deleteNote(notebook_id, note_id):
     # If no user is logged in redirect back to login page.
     if 'username' not in login_session:
@@ -233,8 +231,8 @@ def deleteNote(notebook_id, note_id):
 
     # Query for all notes related to notebook id.
     notes = session.query(Note).filter_by(notebook_id=notebook_id).all()
-    
-    # Query for note by note id passed in via path. 
+
+    # Query for note by note id passed in via path.
     note = session.query(Note).filter_by(id=note_id).one()
 
     # Verify that user owns note they are attempting to access.
@@ -264,14 +262,15 @@ def deleteNote(notebook_id, note_id):
 def createUser(login_session):
     """Add new user to database and return user id."""
     # Create new user object.
-    new_user = User(name=login_session['username'], email=login_session[
-                   'email'], picture=login_session['picture'])
+    new_user = User(name=login_session['username'],
+                    email=login_session['email'],
+                    picture=login_session['picture'])
 
     # Add user to database.
     session.add(new_user)
     session.commit()
 
-    # We can only accesss auto generated 'id' property after committing 
+    # We can only accesss auto generated 'id' property after committing
     # user to db.
     user_id = new_user.id
     return user_id
@@ -301,7 +300,7 @@ def gconnect():
         response.headers['Content-Type'] = 'application/json'
 
         return response
-    
+
     # Obtain authorization code
     code = request.data
 
@@ -351,7 +350,7 @@ def gconnect():
         print "Token's client ID does not match app's."
 
         response.headers['Content-Type'] = 'application/json'
-        
+
         return response
 
     # Get stored_credentials. Note this may return None if the user has
@@ -359,7 +358,7 @@ def gconnect():
     stored_credentials = login_session.get('credentials')
 
     stored_gplus_id = login_session.get('gplus_id')
-    
+
     if stored_credentials is not None and gplus_id == stored_gplus_id:
         response = make_response(json.dumps('Current user is already connected.'),
                                  200)
@@ -414,7 +413,7 @@ def gdisconnect():
 
         response.headers['Content-Type'] = 'application/json'
         return response
-    
+
     # Request that Google revokes token for user
     access_token = credentials.access_token
     url = 'https://accounts.google.com/o/oauth2/revoke?token=%s' % access_token
