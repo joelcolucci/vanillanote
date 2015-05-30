@@ -6,23 +6,29 @@
     <meta name="viewport" content="width=device-width, initial-scale=1">
     <title>Vanilla Note</title>
     <link href='http://fonts.googleapis.com/css?family=Roboto+Condensed|Courgette' rel='stylesheet' type='text/css'>
+    <link href='http://fonts.googleapis.com/css?family=Lato' rel='stylesheet' type='text/css'>
+    <link rel="stylesheet" href="//maxcdn.bootstrapcdn.com/font-awesome/4.3.0/css/font-awesome.min.css">
     <link href="{{ url_for('static', filename='css/normalize.css') }}" rel="stylesheet">
 
     <link href="{{ url_for('static', filename='css/theme.css') }}" rel="stylesheet">
     <link href="{{ url_for('static', filename='css/layout.css') }}" rel="stylesheet">
-    <link href="{{ url_for('static', filename='css/styles.css') }}" rel="stylesheet">
 
     <!--LOAD PRE-REQUISITES FOR GOOGLE SIGN IN -->
     <script src="//ajax.googleapis.com/ajax/libs/jquery/1.8.2/jquery.min.js"></script>
     <script src="//apis.google.com/js/platform.js?onload=start"></script>
 </head>
 <body class="login-page">
-    <div class="primary-toolbar">
-        <div class="toolbar-section">
-            <h1 class="primary-toolbar-heading heading-xl">Vanilla note</h1>
+    <header class="login-header">
+        <div class="column-half">
+            <div class="logo-box">
+                <a href="/">
+                    <div class="logo-pencil"><i class="fa fa-pencil"></i></div>
+                    <h1 class="logo-heading">Vanilla note</h1>
+                </a>
+            </div>
         </div>
-        <div class="toolbar-section text-right">
-            <div id="signInButton" class="btn-signin">
+        <div class="column-half text-right">
+            <div id="signInButton" class="btn-login">
                 <span class="g-signin"
                 data-scope="openid email"
                 data-clientid="980973912000-75uth7aseggpkhdp099henelus6c23pv.apps.googleusercontent.com"
@@ -34,7 +40,7 @@
                 </span>
             </div>
         </div>
-    </div>
+    </header>
 
     {% block content %}
     {% endblock %}
