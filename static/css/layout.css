@@ -51,7 +51,6 @@ body {
 
 
 
-
 /*------------------------------------*\
     #LOGIN-VIEW-STYLES
 \*------------------------------------*/
@@ -168,9 +167,12 @@ body {
 
 
 
+
+
 /*------------------------------------*\
     #PRIMARY-TOOLBAR-STYLES
 \*------------------------------------*/
+
 .page-notebooks {
     background: #fefefe;
 }
@@ -212,6 +214,7 @@ body {
 
 
 
+
 /*------------------------------------*\
     #VIEW-NOTEBOOKS-STYLES
 \*------------------------------------*/
@@ -224,6 +227,7 @@ body {
     margin: 0;
     list-style: none;
 }
+
 .notebook-list li {
     display: inline-block;
     margin: 5px 5px 15px;
@@ -241,7 +245,6 @@ body {
 }
 
 .card:hover {
-    /* Increase shadow to give appearance of raising up */
     opacity: 0.8;
     -webkit-transition: opacity 200ms ease;
     transition: opacity 200ms ease;
@@ -274,6 +277,7 @@ body {
     font-size: 16px;
     padding: 5px 10px;
 }
+
 
 
 
@@ -376,6 +380,7 @@ body {
 .btn-primary:hover {
     background: #1E88E5;
 }
+
 
 
 
@@ -508,6 +513,8 @@ body {
 
 
 
+
+
 /*------------------------------------*\
     #HELPER-STYLES
 \*------------------------------------*/
@@ -563,6 +570,8 @@ body {
     color: #1565C0;
     text-decoration: none;
 }
+
+
 
 
 

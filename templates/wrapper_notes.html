@@ -8,15 +8,12 @@
     <link href='http://fonts.googleapis.com/css?family=Lato:300,400' rel='stylesheet' type='text/css'>
     <link rel="stylesheet" href="//maxcdn.bootstrapcdn.com/font-awesome/4.3.0/css/font-awesome.min.css">
     <link href="{{ url_for('static', filename='css/normalize.css') }}" rel="stylesheet">
-
     <link href="{{ url_for('static', filename='css/theme.css') }}" rel="stylesheet">
     <link href="{{ url_for('static', filename='css/layout.css') }}" rel="stylesheet">
-
 </head>
 <body class="page-notes">
     <header class="notes-header">
         <div class="primary-toolbar">
-
             <div class="column-half">
                 {% with messages = get_flashed_messages() %}
                     {% if messages %}
@@ -26,13 +23,10 @@
                     {% endif %}
                 {% endwith %}
             </div>
-
             <div class="column-half text-right">
                 <a href="{{url_for('gdisconnect')}}" class="link-primary link-invert">Sign out</a>
             </div>
-
         </div>
-
         <div class="sidebar">
             <h2 class="sidebar-heading"><a href="/">Notebooks</a> > <a href="{{url_for('newNote', notebook_id=notebook_id)}}">Notes</a></h2>
             <ul class="sidebar-items">
@@ -43,11 +37,10 @@
                     </a>
                 </li>
                 {% for note in notes %}
-                <li class="sidebar-item">
-                    <a href="{{url_for('viewNote', notebook_id=note.notebook_id, note_id=note.id)}}">{{ note.title }}</a>
-                </li>
+                    <li class="sidebar-item">
+                        <a href="{{url_for('viewNote', notebook_id=note.notebook_id, note_id=note.id)}}">{{ note.title }}</a>
+                    </li>
                 {% endfor %}
-
             </ul>
         </div>
     </header>

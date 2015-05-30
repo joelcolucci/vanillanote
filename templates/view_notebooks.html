@@ -1,28 +1,24 @@
 {% extends "wrapper_notebooks.html" %}
 {% block content %}
 
-
 <div class="notebooks text-center">
     <ul class="notebook-list">
-
         {% for notebook in notebooks %}
-        <li>
-            <div class="card">
-                <div class="card-content">
-                    <a href="{{url_for('newNote', notebook_id=notebook.id)}}">
-                        <i class="fa fa-book fa-4x"></i>
-                    </a>
-                    <h2 class="card-title">{{ notebook.name}}</h2>
+            <li>
+                <div class="card">
+                    <div class="card-content">
+                        <a href="{{url_for('newNote', notebook_id=notebook.id)}}">
+                            <i class="fa fa-book fa-4x"></i>
+                        </a>
+                        <h2 class="card-title">{{ notebook.name}}</h2>
+                    </div>
+                    <div class="card-content card-controls text-right">
+                        <a href="{{url_for('editNotebook', notebook_id=notebook.id)}}" class="link-primary link-invert">edit</a>
+                        <a href="{{url_for('deleteNotebook', notebook_id=notebook.id)}}" class="link-primary link-invert">delete</a>
+                    </div>
                 </div>
-                <div class="card-content card-controls text-right">
-                    <a href="{{url_for('editNotebook', notebook_id=notebook.id)}}" class="link-primary link-invert">edit</a>
-
-                    <a href="{{url_for('deleteNotebook', notebook_id=notebook.id)}}" class="link-primary link-invert">delete</a>
-                </div>
-            </div>
-        </li>
+            </li>
         {% endfor %}
-
         <li>
             <div class="card">
                 <div class="card-content">
@@ -33,7 +29,6 @@
                 </div>
             </div>
         </li>
-
     </ul>
 </div>
 
