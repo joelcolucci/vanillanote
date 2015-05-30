@@ -111,9 +111,9 @@ body {
 .invert {
     color: #fff;
 }
+
 .page-splash {
     padding: 120px 0 80px;
-    
 }
 
 .splash-heading {
@@ -271,6 +271,11 @@ body {
     color: #868686;
 }
 
+.fa-mod {
+    padding: 0 20px 0 0;
+    color: #fff;
+    font-size: 22px;
+}
 /*------------------------------------*\
     #VIEW-NEW-NOTEBOOKS-STYLES
 \*------------------------------------*/
@@ -307,21 +312,23 @@ body {
     #PAGE-STYLES
 \*------------------------------------*/
 
-.notes-page .primary-toolbar {
+.page-notes .primary-toolbar {
+    position: fixed;
     left: 300px;
     right: 0;
-    width: inherit;
     height: 31px;
+    width: inherit;
+    border-bottom: 1px solid #eee;
 }
 
-.notes-page .link-primary {
+.page-notes .link-primary {
     display: inline-block;
-    padding-top: 4px;
+    padding-top: 5px;
 }
 
-
-
-
+.page-notes .primary-toolbar-flash {
+    color: #1565C0;
+}
 
 
 /*------------------------------------*\
@@ -333,14 +340,17 @@ body {
     top: 0px;
     left: 0;
     width: 300px;
-    background: #673AB7;
+    background: #1976D2;
     box-shadow: 0 2px 5px rgba(0,0,0,0.26);
     z-index: 2;
 }
 
 .sidebar-heading {
-    margin: 10px 15px;
+    padding: 15px;
+    margin: 0;
     color: #fff;
+    background: #0D47A1;
+    font-weight: 300;
 }
 
 .sidebar-heading a {
@@ -355,13 +365,12 @@ body {
 }
 
 .sidebar-item {
-    
     color: #fff;
     cursor: pointer;
 }
 
 .sidebar-item:hover {
-    background: #9575CD;
+    background: #2196F3;
 }
 
 .sidebar-item a {
@@ -373,6 +382,9 @@ body {
     padding: 15px;
 }
 
+.sidebar-item a > * {
+    vertical-align: middle;
+}
 
 
 
@@ -424,75 +436,6 @@ body {
 
 
 /*------------------------------------*\
-    #MATERIAL-DESIGN-BUTTON-STYLES
-\*------------------------------------*/
-
-.btn-arrow {
-    background-color: #673AB7;
-    border-radius: 50%;
-    bottom: 6%;
-    box-shadow: 0 3px 6px rgba(0,0,0,.2);
-    color: #404040;
-    cursor: pointer;
-    font-size: 2.2em;
-    height: 1.5em;
-    font-family: "font-icon";
-    speak: none;
-    font-style: normal;
-    font-weight: normal;
-    font-variant: normal;
-    text-transform: none;
-    line-height: 1;
-    -webkit-font-smoothing: antialiased;
-    margin: auto;
-    pointer-events: none;
-    position: absolute;
-    right: 30px;
-    -moz-transform: translate(0,0);
-    -ms-transform: translate(0,0);
-    -webkit-transform: translate(0,0);
-    transform: translate(0,0);
-    -moz-transform: translate3d(0,0,0);
-    -ms-transform: translate3d(0,0,0);
-    -webkit-transform: translate3d(0,0,0);
-    transform: translate3d(0,0,0);
-    width: 1.5em;
-
-    -moz-transition-property: opacity,-moz-transform,bottom,background,box-shadow;
-    -o-transition-property: opacity,-o-transform,bottom,background,box-shadow;
-    -webkit-transition-property: opacity,-webkit-transform,bottom,background,box-shadow;
-    transition-property: opacity,transform,bottom,background,box-shadow;
-    -moz-transition-duration: .5s,1s,1s,.25s,.25s;
-    -o-transition-duration: .5s,1s,1s,.25s,.25s;
-    -webkit-transition-duration: .5s,1s,1s,.25s,.25s;
-    transition-duration: .5s,1s,1s,.25s,.25s;
-    -moz-transition-timing-function: ease-in-out,ease-in-out,ease-in-out,cubic-bezier(.4,0,.2,1),cubic-bezier(.4,0,.2,1);
-    -o-transition-timing-function: ease-in-out,ease-in-out,ease-in-out,cubic-bezier(.4,0,.2,1),cubic-bezier(.4,0,.2,1);
-    -webkit-transition-timing-function: ease-in-out,ease-in-out,ease-in-out,cubic-bezier(.4,0,.2,1),cubic-bezier(.4,0,.2,1);
-    transition-timing-function: ease-in-out,ease-in-out,ease-in-out,cubic-bezier(.4,0,.2,1),cubic-bezier(.4,0,.2,1)
-}
-
-.btn-arrow:active {
-    background: #512DA8;
-    box-shadow: 0 7px 15px rgba(0,0,0,.35);
-}
-
-.btn-arrow.active {
-    opacity: 1;
-    pointer-events: auto;
-    -moz-transition-delay: .75s,0,0,0,0;
-    -o-transition-delay: .75s,0,0,0,0;
-    -webkit-transition-delay: .75s,0,0,0,0;
-    transition-delay: .75s,0,0,0,0;
-}
-
-
-
-
-
-
-
-/*------------------------------------*\
     #HELPER-STYLES
 \*------------------------------------*/
 
@@ -510,9 +453,11 @@ body {
 .link-primary:hover {
     text-decoration: underline;
 }
+
 .link-invert {
     color: #1565C0;
 }
+
 
 .primary-toolbar.void {
     box-shadow: none;
