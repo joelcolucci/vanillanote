@@ -262,20 +262,29 @@ def deleteNote(notebook_id, note_id):
 
 
 def createUser(login_session):
-    newUser = User(name=login_session['username'], email=login_session[
+    """Add new user to database and return user id."""
+    # Create new user object.
+    new_user = User(name=login_session['username'], email=login_session[
                    'email'], picture=login_session['picture'])
-    session.add(newUser)
+
+    # Add user to database.
+    session.add(new_user)
     session.commit()
-    user = session.query(User).filter_by(email=login_session['email']).one()
-    return user.id
+
+    # We can only accesss auto generated 'id' property after committing 
+    # user to db.
+    user_id = new_user.id
+    return user_id
 
 
 def getUserInfo(user_id):
+    """Get user info from database."""
     user = session.query(User).filter_by(id=user_id).one()
     return user
 
 
 def getUserID(email):
+    """Return user id by querying on email address"""
     try:
         user = session.query(User).filter_by(email=email).one()
         return user.id
@@ -285,21 +294,8 @@ def getUserID(email):
 
 @app.route('/gconnect', methods=['POST'])
 def gconnect():
-    # When the client first requested the page we generated the "state" token
-    # and sent it as part of the HTML. We included it in our JavaScript callback
-    # function.
-    # 1. Page loads
-    # 2. User clicks login with Google plus
-    # 3. A request is sent from the client to Google
-    # 4. Google asks users to confirm they are requesting a token
-    #    to give Vanilla Note access to xyz
-    # 5. User accepts
-    # 6. Google sends token back to client which then calls the callback function
-    # 7. The callback function sends the data received from Google to the server
-    #    via AJAX
-    # 8. Here we are handling that AJAX
-
-    # Validate the "state" token
+    """Handle Google+ sign in token flow"""
+    # Validate the "state" token.
     if request.args.get('state') != login_session['state']:
         response = make_response(json.dumps('Invalid state parameter.'), 401)
         response.headers['Content-Type'] = 'application/json'
@@ -322,8 +318,8 @@ def gconnect():
 
         return response
 
-    # # Check that the access token is valid by running it against their oauth
-    # # API.
+    # Check that the access token is valid by running it against their oauth
+    # API.
     access_token = credentials.access_token
 
     url = ('https://www.googleapis.com/oauth2/v1/tokeninfo?access_token=%s'
@@ -370,7 +366,8 @@ def gconnect():
         response.headers['Content-Type'] = 'application/json'
         return response
 
-    login_session['credentials'] = credentials # ERROR: THIS LINE IS causing "not JSON serializeable"
+    # Store credentials and id in login session.
+    login_session['credentials'] = credentials
     login_session['gplus_id'] = gplus_id
 
     # Get user info via a request to google, server to server, mono e mono.
@@ -384,20 +381,22 @@ def gconnect():
     login_session['picture'] = data['picture']
     login_session['email'] = data['email']
 
-    # see if user exists, if it doesn't make a new one
+    # Check if user exists, if not make a new one.
     user_id = getUserID(data["email"])
     if not user_id:
         user_id = createUser(login_session)
 
     login_session['user_id'] = user_id
 
-    output = ''
-    output += '<h1>Welcome, '
+    # Generate html response. Will be handled by AJAX callback on client side.
+    output = '<h1>Welcome, '
     output += login_session['username']
     output += '!</h1>'
     output += '<img src="'
     output += login_session['picture']
-    output += ' " style = "width: 30px; height: 30px;border-radius: 150px;-webkit-border-radius: 150px;-moz-border-radius: 150px;"> '
+    output += ' " style = "width: 30px; height: 30px;border-radius: 150px;"> '
+
+    # Notify user everything went well with the sign in.
     flash("You are now logged in as %s!" % login_session['username'])
 
     return output
@@ -406,46 +405,42 @@ def gconnect():
 #DISCONNECT - Revoke a current user's token and reset their login_session
 @app.route('/gdisconnect')
 def gdisconnect():
-    # Only disconnect a connected user.
+    """Handle Google+ sign out token flow"""
     credentials = login_session.get('credentials')
 
     if credentials is None:
-        # No user logged in but they somehow clicked "logoout" anyways
         response = make_response(
             json.dumps('Current user not connected.'), 401)
 
         response.headers['Content-Type'] = 'application/json'
-        
         return response
     
-    # Time to go ahead and log out the user by two doing things
-    # First we will make an API call to tell Google get rid of the
-    # token you gave us
-    # Second we delete the session records on our end
+    # Request that Google revokes token for user
     access_token = credentials.access_token
     url = 'https://accounts.google.com/o/oauth2/revoke?token=%s' % access_token
     h = httplib2.Http()
     result = h.request(url, 'GET')[0]
 
-    # Check that Googles reponse to us is a-okay
+    # Check that Googles received request to revoke and request completed
+    # successfully.
     if result['status'] == '200':
-        # Reset the user's sesson.
+        # Reset users session data.
         del login_session['credentials']
         del login_session['gplus_id']
         del login_session['username']
         del login_session['email']
         del login_session['picture']
 
+        # Notify user they were disconnected successfully.
         response = make_response(json.dumps('Successfully disconnected.'), 200)
         response.headers['Content-Type'] = 'application/json'
 
         return response
 
     else:
-        # For whatever reason, the given token was invalid.
+        # Handle if request to revoke token failed.
         response = make_response(
             json.dumps('Failed to revoke token for given user.', 400))
-
         response.headers['Content-Type'] = 'application/json'
 
         return response
@@ -453,6 +448,7 @@ def gdisconnect():
 
 @app.route('/forceout')
 def forceOut():
+    """Development use only, forces session properties to be cleared"""
     del login_session['credentials']
     del login_session['gplus_id']
     del login_session['username']
