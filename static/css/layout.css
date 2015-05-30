@@ -22,7 +22,6 @@ body,
 }
 
 body {
-    padding-top: 35px;
     background: #efefef;
 }
 
@@ -90,7 +89,7 @@ body {
     display: inline-block;
     height: 32px;
     width: 32px;
-    padding: 5px 0 0;
+    padding: 6px 0 0;
     background: #2196F3;
     color: #fff;
     border-radius: 50%;
@@ -104,6 +103,14 @@ body {
     font-family: 'Lato', sans-serif;
 }
 
+.pencil-invert {
+    background: #fff;
+    color: #2196f3;
+}
+
+.invert {
+    color: #fff;
+}
 .page-splash {
     padding: 120px 0 80px;
     
@@ -153,14 +160,17 @@ body {
 /*------------------------------------*\
     #PRIMARY-TOOLBAR-STYLES
 \*------------------------------------*/
+.notebooks-header {
+/*    position: fixed;
+    top: 0;
+    left: 0;
+    right: 0;*/
+    padding: 1px 10px;
+    background: #2196f3;
+}
+
 
 .primary-toolbar {
-    background: #673AB7;
-    color: #fff;
-    padding: 1px;
-    box-shadow: 0 2px 5px rgba(0,0,0,0.26);
-    position: fixed;
-    top: 0;
     width: 100%;
     z-index: 1;
 }
@@ -185,10 +195,9 @@ body {
     font-size: 24px;
 }
 
-.toolbar-section {
-    display: inline-block;
-    width: 49%;
-
+.secondary-toolbar {
+    margin-top: 30px;
+    padding: 0 60px;
 }
 
 
@@ -215,26 +224,6 @@ body {
 }
 
 
-
-
-
-/*------------------------------------*\
-    #SECONDARY-TOOLBAR-STYLES
-\*------------------------------------*/
-
-.secondary-toolbar {
-    padding: 5px;
-    border-bottom: 1px solid #ddd;
-}
-
-.secondary-toolbar-heading {
-    padding-left: 15px;
-}
-
-.secondary-toolbar-heading a {
-    color: #000;
-    text-decoration: none;
-}
 
 
 
@@ -504,12 +493,20 @@ body {
     #HELPER-STYLES
 \*------------------------------------*/
 
+.heading-secondary {
+    font-weight: 300;
+}
+
+
 .link-primary {
     text-decoration: none;
     padding: 2px 5px;
     color: #fff;
 }
 
+.link-primary:hover {
+    text-decoration: underline;
+}
 .link-invert {
     color: #651FFF;
 }
