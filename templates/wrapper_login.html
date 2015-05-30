@@ -28,7 +28,7 @@
             </div>
         </div>
         <div class="column-half text-right">
-            <div id="signInButton" class="btn-login">
+            <div id="signin-button" class="btn-login">
                 <span class="g-signin"
                 data-scope="openid email"
                 data-clientid="980973912000-75uth7aseggpkhdp099henelus6c23pv.apps.googleusercontent.com"
@@ -39,12 +39,16 @@
                 data-approvalprompt="force">
                 </span>
             </div>
+            <div class="logging-in">
+                Logging in...
+            </div>
+            <div id="result"></div>
         </div>
     </header>
 
     {% block content %}
     {% endblock %}
-    <div id="result"></div>
+    
     <footer class="footer text-center">
         <p class="copy-right"> Vanilla Note Copyright &copy; 2015</p>
     </footer>
@@ -52,8 +56,12 @@
         function signInCallback(authResult) {
             if (authResult['code']) {
                 // Hide the sign-in button now that the user is authorized
-                $('#signinButton').attr('style', 'display: none');
-            
+                $('#signin-button').attr('style', 'display: none');
+
+                //Append "Logging in" message to 
+                $('.logging-in').attr('style', 'display:block');
+
+              
                 // Send the one-time-use code to the server, if the server responds, write a 'login successful' message to the web page and then redirect back to the main restaurants page
                 $.ajax({
                     type: 'POST',
@@ -64,7 +72,18 @@
                     success: function(result) {
                         // Handle or verify the server response if necessary.
                         if (result) {
-                            $('#result').html('Login Successful!</br>'+ result + '</br>Redirecting...')
+                            $('.logging-in').attr('style', 'display:none');
+
+                            var html_nodes = $.parseHTML(result);
+                            var img = html_nodes[1];
+                            img.style.height = '30px';
+                            img.style.width = '30px';
+                  
+                            var greeting = html_nodes[0];
+
+                            $('#result').append(greeting);
+                            $('#result').append(img);
+                
                             setTimeout(function() {
                                 window.location.href = "/";
                             }, 4000);

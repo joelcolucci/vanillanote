@@ -132,6 +132,22 @@ body {
     color: #555;
 }
 
+.logging-in {
+    display: none;
+}
+
+#result h1 {
+    display: inline-block;
+    margin: 0 10px 0 0;
+    font-size: 18px;
+}
+
+#result > * {
+    vertical-align: middle;
+}
+
+
+
 
 
 /*------------------------------------*\
