@@ -48,6 +48,8 @@ body {
 
 
 
+
+
 /*------------------------------------*\
     #LOGIN-VIEW-STYLES
 \*------------------------------------*/
@@ -216,6 +218,7 @@ body {
 .notebook-list li {
     display: inline-block;
     margin: 5px 5px 15px;
+    vertical-align: top;
 }
 
 .card {
@@ -232,8 +235,7 @@ body {
     /* Increase shadow to give appearance of raising up */
     opacity: 0.8;
     -webkit-transition: opacity 200ms ease;
-    transition: opacity 200ms ease
-
+    transition: opacity 200ms ease;
 }
 
 .card-title {
@@ -242,6 +244,10 @@ body {
     color: #222;
     font-weight: 300;
     border-top: 1px solid #ccc;
+}
+
+.card-controls {
+    padding-right: 10px;
 }
 
 .form-nb-delete {
@@ -259,6 +265,40 @@ body {
     font-size: 16px;
     padding: 5px 10px;
 }
+
+
+
+
+/*------------------------------------*\
+    #MODAL-VIEW-STYLES
+\*------------------------------------*/
+
+.modal {
+    position: fixed;
+    top: 0;
+    bottom: 0;
+    left: 0;
+    right: 0;
+    background: rgba(0, 0, 0, .3);
+}
+
+.modal-card {
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    height: 200px;
+    margin-top: -150px;
+    margin-left: -165px;
+    text-align: center;
+}
+
+.modal-card:hover {
+    opacity: 1;
+}
+
+
+
+
 
 /*------------------------------------*\
     #HELPER-STYLES

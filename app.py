@@ -103,7 +103,7 @@ def editNotebook(notebook_id):
         return render_template('view_edit_notebook.html', notebook=notebook)
 
 
-@app.route('/notebook/<int:notebook_id>/delete', methods=['POST'])
+@app.route('/notebook/<int:notebook_id>/delete', methods=['GET', 'POST'])
 def deleteNotebook(notebook_id):
     # If user not logged in redirect back to home
     if 'username' not in login_session:
@@ -126,7 +126,7 @@ def deleteNotebook(notebook_id):
         return redirect(url_for('showLogin'))
 
     else:
-        return render_template('view_notebooks.html')
+        return render_template('view_notebooks.html', show_modal=True)
 
 
 @app.route("/notebook/<int:notebook_id>/notes", methods=['GET'])

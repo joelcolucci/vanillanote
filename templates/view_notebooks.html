@@ -14,12 +14,10 @@
                     </a>
                     <h2 class="card-title">{{ notebook.name}}</h2>
                 </div>
-                <div class="card-content">
-                    <a href="{{url_for('editNotebook', notebook_id=notebook.id)}}" class="link-primary link-invert notebook-edit">edit</a>
+                <div class="card-content card-controls text-right">
+                    <a href="{{url_for('editNotebook', notebook_id=notebook.id)}}" class="link-primary link-invert">edit</a>
 
-                    <form action="{{url_for('deleteNotebook', notebook_id=notebook.id)}}" method="POST" class="form-nb-delete">
-                        <input type="submit" value="delete" class="clear-input btn-default">
-                    </form>
+                    <a href="{{url_for('deleteNotebook', notebook_id=notebook.id)}}" class="link-primary link-invert">delete</a>
                 </div>
             </div>
         </li>
@@ -39,5 +37,22 @@
     </ul>
 </div>
 
+{% if show_modal %}
+<div class="modal">
+    <div class="card modal-card">
+        <div class="card-content">
+            <h2 class="new-title">Are you sure?</h2>
+        </div>
+        <div class="card-content">
+            <form method="POST">
+                <div class="notebook-controls">
+                    <input type="submit" value="Yes" class="btn-default">
+                    <a href="/" class="btn-default">Cancel</a>
+                </div>
+            </form>
+        </div>
+    </div>
+</div>
+{% endif %}
 
 {% endblock %}
