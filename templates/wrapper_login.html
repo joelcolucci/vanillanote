@@ -61,7 +61,6 @@
                 //Append "Logging in" message to 
                 $('.logging-in').attr('style', 'display:block');
 
-              
                 // Send the one-time-use code to the server, if the server responds, write a 'login successful' message to the web page and then redirect back to the main restaurants page
                 $.ajax({
                     type: 'POST',
@@ -77,7 +76,7 @@
                 
                             setTimeout(function() {
                                 window.location.href = "/";
-                            }, 4000);
+                            }, 3000);
                         } else if (authResult['error']) {
                             console.log('There was an error: ' + authResult['error']);
                         } else {

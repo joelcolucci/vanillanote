@@ -2,3 +2,4 @@ venv
 *.pyc
 work.txt
 .client_secret.json
+pylint.txt
