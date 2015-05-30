@@ -266,9 +266,15 @@ body {
 
 .fa-book,
 .fa-plus-circle,
-.fa-pencil-square-o {
+.fa-pencil-square-o,
+.new-title {
     padding: 50px 50px 30px;
     color: #868686;
+}
+
+.new-title {
+    padding: 30px 50px 20px;
+    font-weight: 300;
 }
 
 .fa-mod {
@@ -280,16 +286,12 @@ body {
     #VIEW-NEW-NOTEBOOKS-STYLES
 \*------------------------------------*/
 
-
-
 .notebook-controls {
     position: absolute;
     bottom: 15px;
     left: 0;
     width: 100%;
 }
-
-
 
 .notebook-controls a,
 .notebook-controls input[type="submit"] {
@@ -305,6 +307,8 @@ body {
     border: 1px solid #eee;
     padding: 10px;
 }
+
+
 
 
 
@@ -329,6 +333,9 @@ body {
 .page-notes .primary-toolbar-flash {
     color: #1565C0;
 }
+
+
+
 
 
 /*------------------------------------*\
@@ -443,7 +450,6 @@ body {
     font-weight: 300;
 }
 
-
 .link-primary {
     text-decoration: none;
     padding: 2px 5px;
@@ -457,7 +463,6 @@ body {
 .link-invert {
     color: #1565C0;
 }
-
 
 .primary-toolbar.void {
     box-shadow: none;
