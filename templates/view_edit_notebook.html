@@ -1,21 +1,39 @@
 {% extends "wrapper_notebooks.html" %}
 {% block content %}
 
-<div class="secondary-toolbar">
-    <h2 class="secondary-toolbar-heading"><a href="/">Notebooks</a> > Edit</h2>
-</div>
-
 <div class="notebooks text-center">
-    <div class="card card-xl">
-        <form method="POST">
-            <input type="text" name="title" id="title" placeholder="Name of notebook?" maxlength="30" class="clear-input" value="{{notebook.name}}">
-            <i class="fa fa-book fa-5x"></i>
-            <div class="notebook-controls">
-                <input type="submit" value="save" class="btn-default">
-                <a href="/" class="btn-default">cancel</a>
-            </div>
-        </form>
+    <div class="card">
+        <div class="card-content">
+            <i class="fa fa-pencil-square-o fa-4x"></i>
+
+        </div>
+        <div class="card-content">
+            <form method="POST">
+                <input type="text" name="title" id="title" placeholder="Name of notebook?" maxlength="30" class="title-edit" value="{{notebook.name}}">
+                
+                <div class="notebook-controls">
+                    <input type="submit" value="save" class="btn-default">
+                    <a href="/" class="btn-default">cancel</a>
+                </div>
+            </form>
+        </div>
     </div>
+
+<!--             <div class="card">
+                <div class="card-content">
+                    <a href="{{url_for('newNote', notebook_id=notebook.id)}}">
+                        <i class="fa fa-book fa-4x"></i>
+                    </a>
+                    <h2 class="card-title">{{ notebook.name}}</h2>
+                </div>
+                <div class="card-content">
+                    <a href="{{url_for('editNotebook', notebook_id=notebook.id)}}" class="link-primary link-invert notebook-edit">edit</a>
+
+                    <form action="{{url_for('deleteNotebook', notebook_id=notebook.id)}}" method="POST" class="form-nb-delete">
+                        <input type="submit" value="delete" class="clear-input btn-default">
+                    </form>
+                </div>
+            </div> -->
 </div>
 
 {% endblock %}

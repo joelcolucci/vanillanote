@@ -265,7 +265,8 @@ body {
 \*------------------------------------*/
 
 .fa-book,
-.fa-plus-circle {
+.fa-plus-circle,
+.fa-pencil-square-o {
     padding: 50px 50px 30px;
     color: #868686;
 }
@@ -274,17 +275,7 @@ body {
     #VIEW-NEW-NOTEBOOKS-STYLES
 \*------------------------------------*/
 
-.card-xl {
-    height: 325px;
-    width: 300px;
-    padding: 30px;
-    cursor: inherit;
-    position: relative;
-}
 
-.card-xl:hover {
-    opacity: inherit;
-}
 
 .notebook-controls {
     position: absolute;
@@ -293,19 +284,22 @@ body {
     width: 100%;
 }
 
-#title {
-    font-weight: bold;
-}
+
 
 .notebook-controls a,
 .notebook-controls input[type="submit"] {
-    background: #7C4DFF;
+    background: #1976D2;
     color: #fff;
     border-radius: 2px;
     width: 90px;
 }
 
-
+.title-edit {
+    width: 90%;
+    resize: none;
+    border: 1px solid #eee;
+    padding: 10px;
+}
 
 
 
