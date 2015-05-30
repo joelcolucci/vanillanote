@@ -2,9 +2,9 @@
 {% block content %}
 
 <div class="container-note">
-    <form method="POST">
+    <form method="POST" class="form-note">
         <input type="text" id="note-input-title" class="clear-input" name="title" placeholder="Title goes here">
-        <textarea id="note-input-content" class="clear-input" name="content" placeholder="Write your note here..."></textarea>
+        <textarea id="note-input-content" class="clear-input" name="content" placeholder="Write your note here..." autofocus></textarea>
         <input type="submit" class="btn btn-primary note-submit" value="Save note">
     </form>
 </div>
