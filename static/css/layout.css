@@ -41,7 +41,10 @@ body {
     width: 49%;
 }
 
-
+.column-third {
+    display: inline-block;
+    width: 32%;
+}
 
 
 
@@ -51,7 +54,10 @@ body {
 \*------------------------------------*/
 
 .login-page {
+    padding-top: 54px;
     background: #fff;
+    margin: 0 auto;
+    max-width: 1000px;
 }
 
 .login-header {
@@ -96,6 +102,20 @@ body {
     margin: 5px 5px;
     color: #353535;
     font-family: 'Lato', sans-serif;
+}
+
+.page-splash {
+    padding: 120px 0 80px;
+    
+}
+
+.splash-heading {
+    font-weight: 300;
+}
+
+.info-card {
+    height: 18px;
+    background: #2196F3;
 }
 
 
@@ -148,13 +168,9 @@ body {
     #PAGE-STYLES
 \*------------------------------------*/
 
-.login-page {
-    padding-top: 54px;
-}
 
-.login-page .toolbar-section {
-    vertical-align: top;
-}
+
+
 
 .notes-page .primary-toolbar {
     left: 300px;
@@ -177,7 +193,6 @@ body {
 \*------------------------------------*/
 
 .secondary-toolbar {
-    background: #EDE7F6;
     padding: 5px;
     border-bottom: 1px solid #ddd;
 }
