@@ -28,7 +28,7 @@ CLIENT_ID = json.loads(
 
 APPLICATION_NAME = "Vanilla Note"
 
-# Connect to Database and create database session
+# Connect to Heroku database
 engine = create_engine('postgres://thyucdfobkhbyq:Kwj60OMjv2z7ovelhZet-OWYzq@ec2-107-20-222-114.compute-1.amazonaws.com:5432/dci4hqej3ncibd')
 Base.metadata.bind = engine
 
@@ -36,153 +36,164 @@ DBSession = sessionmaker(bind=engine)
 session = DBSession()
 
 
-# Create anti-forgery state token
 @app.route('/')
 @app.route('/notebooks')
 def showLogin():
+    # If no user is logged in redirect back to login page.
     if 'username' not in login_session:
+        # Create anti-forgery state token.
         state = ''.join(random.choice(string.ascii_uppercase + string.digits)
                     for x in xrange(32))
         login_session['state'] = state
-        # return "The current session state is %s" % login_session['state']
+
         return render_template('login.html', STATE=state)
 
     user_id = login_session['user_id']
+
+    # Query for all notebooks owned by user.
     notebooks = session.query(Notebook).filter_by(user_id=user_id).all()
-
-    #TODO: Filter Notebooks by user_id
-
-    #TODO: Before edit/delete check that user is owner of record
-    #https://github.com/udacity/ud330/blob/master/Lesson3/step3/project.py
     
     return render_template('view_notebooks.html', notebooks=notebooks)
 
 
 @app.route('/notebook/new', methods=['GET','POST'])
 def newNotebook():
-    # If user not logged in redirect back to home
+    # If no user is logged in redirect back to login page.
     if 'username' not in login_session:
         return redirect('/')
 
     if request.method == 'POST':
+        # Extract form values from request object.
         title = request.form.get('title', 'title')
+
+        # Create new notebook object.
         new_notebook = Notebook(name=title,
                                 user_id=login_session['user_id'])
 
+        # Store notebook in database.
         session.add(new_notebook)
         session.commit()
 
+        # Notify user action successful.
         flash('New notebook "%s" succesfully created!' % new_notebook.name)
         return redirect(url_for('showLogin'))
-
     else:
         return render_template('view_new_notebook.html')
 
 
 @app.route('/notebook/<int:notebook_id>/edit', methods=['GET', 'POST'])
 def editNotebook(notebook_id):
-    # If user not logged in redirect back to home
+    # If no user is logged in redirect back to login page.
     if 'username' not in login_session:
         return redirect('/')
 
+    # Query for notebook by notebook id passed in via path.
     notebook = session.query(Notebook).filter_by(id=notebook_id).one()
 
-    #USER: Verify
+    # Verify that user owns notebook they are attempting to access.
     if notebook.user_id != login_session['user_id']:
-        # Does not have permission to edit, view or delete
+        # Notify user they do not have permission to access.
         flash('You do not have permission!')
         return redirect(url_for('showLogin'))
 
     if request.method == 'POST':
+         # Extract form values from request object and update record in db.
         notebook.name = request.form.get('title')
 
+        # Notify user action successful.
         flash('Notebook "%s" succesfully updated!' % notebook.name)
         return redirect(url_for('showLogin'))
-
     else:
         return render_template('view_edit_notebook.html', notebook=notebook)
 
 
 @app.route('/notebook/<int:notebook_id>/delete', methods=['GET', 'POST'])
 def deleteNotebook(notebook_id):
-    # If user not logged in redirect back to home
+    # If no user is logged in redirect back to login page.
     if 'username' not in login_session:
         return redirect('/')
 
+    # Query for notebook by notebook id passed in via path.
     notebook = session.query(Notebook).filter_by(id=notebook_id).one()
 
-    #USER: Verify
+    # Verify that user owns notebook they are attempting to access.
     if notebook.user_id != login_session['user_id']:
-        # Does not have permission to edit, view or delete
+        # Notify user they do not have permission to access.
         flash('You do not have permission!')
         return redirect(url_for('showLogin'))
 
     if request.method == 'POST':
-
+        # Delete notebook from database.
         session.delete(notebook)
         session.commit()
 
-        flash('Notebook "%s" succesfully deleted!' % notebook.name)
+        # Notify user action successful.
+        flash('Notebook "%s" successfully deleted!' % notebook.name)
         return redirect(url_for('showLogin'))
-
     else:
+        # Show modal containing prompt to confirm delete action.
         return render_template('view_notebooks.html', show_modal=True)
 
 
 @app.route("/notebook/<int:notebook_id>/notes", methods=['GET'])
 @app.route('/notebook/<int:notebook_id>/notes/new', methods=['GET','POST'])
 def newNote(notebook_id):
-    # If user not logged in redirect back to home
+    # If no user is logged in redirect back to login page.
     if 'username' not in login_session:
         return redirect('/')
 
+    # Query for notebook by notebook id passed in via path.
     notebook = session.query(Notebook).filter_by(id=notebook_id).one()
 
-    #USER: Verify
+    # Verify that user owns notebook they are attempting to access.
     if notebook.user_id != login_session['user_id']:
-        # Does not have permission to edit, view or delete
+        # Notify user they do not have permission to access.
         flash('You do not have permission!')
         return redirect(url_for('showLogin'))
 
     if request.method == 'POST':
+        # Extract form values from request object.
         title = request.form.get('title', "No named note")
         content = request.form.get('content', 'hello, world')
 
+        # Create new note object.
         note = Note(title=title, content=content, notebook_id=notebook_id,
                     user_id=login_session['user_id'])
 
         # Add note to database
         session.add(note)
-
-        # Flush so we can ask the unique ID assigned to the new note.
-        #TODO: May not need to use flush according to docs commit will auto flush
-        # http://docs.sqlalchemy.org/en/latest/orm/tutorial.html#adding-new-objects
-        session.flush()
         session.commit()
 
-        # Get the unique ID of the note after flush.
+        # We can only accesss auto generated 'id' property after committing 
+        # note to db.
         note_id = note.id
-        flash('New note "%s" succesfully created!' % note.title)
-        return redirect(url_for('viewNote', notebook_id=notebook_id, note_id=note_id))
 
+        # Notify user action successful.
+        flash('New note "%s" succesfully created!' % note.title)
+
+        # Render template for note that was just created.
+        return redirect(url_for('viewNote', notebook_id=notebook_id, note_id=note_id))
     else:
+        # Query for all notes for notebook id pass in via path.
         notes = session.query(Note).filter_by(notebook_id=notebook_id).all()
         return render_template('view_new_note.html', notes=notes, notebook_id=notebook_id)
 
 
 @app.route('/notebook/<int:notebook_id>/notes/<int:note_id>', methods=['GET'])
 def viewNote(notebook_id, note_id):
-    # If user not logged in redirect back to home
+    # If no user is logged in redirect back to login page.
     if 'username' not in login_session:
         return redirect('/')
 
+    # Query for all notes related to notebook id.
     notes = session.query(Note).filter_by(notebook_id=notebook_id).all()
 
+    # Query for note by note id passed in via path.
     note = session.query(Note).filter_by(id=note_id).one()
     
-    #USER: Verify
+    # Verify that user owns note they are attempting to access.
     if note.user_id != login_session['user_id']:
-        # Does not have permission to edit, view or delete
+        # Notify user they do not have permission to access.
         flash('You do not have permission!')
         return redirect(url_for('showLogin'))
 
@@ -191,47 +202,58 @@ def viewNote(notebook_id, note_id):
 
 @app.route('/notebook/<int:notebook_id>/notes/<int:note_id>/edit', methods=['POST'])
 def editNote(notebook_id, note_id):
-    # If user not logged in redirect back to home
+    # If no user is logged in redirect back to login page.
     if 'username' not in login_session:
         return redirect('/')
+
+    # Query for note by note id passed in via path.    
     note = session.query(Note).filter_by(id=note_id).one()
 
-    #USER: Verify
+    # Verify that user owns note they are attempting to access.
     if note.user_id != login_session['user_id']:
-        # Does not have permission to edit, view or delete
+        # Notify user they do not have permission to access.
         flash('You do not have permission!')
         return redirect(url_for('showLogin'))
 
     if request.method == 'POST':
+        # Extract form values from request object and update records in db.
         note.title = request.form.get('title')
         note.content = request.form.get('content')
 
+        # Notify user action successful.
         flash('Note "%s" succesfully updated!' % note.title)
         return redirect(url_for('viewNote', notebook_id=notebook_id, note_id=note_id))
 
 
 @app.route('/notebook/<int:notebook_id>/notes/<int:note_id>/delete', methods=['GET','POST'])
 def deleteNote(notebook_id, note_id):
-    # If user not logged in redirect back to home
+    # If no user is logged in redirect back to login page.
     if 'username' not in login_session:
         return redirect('/')
+
+    # Query for all notes related to notebook id.
+    notes = session.query(Note).filter_by(notebook_id=notebook_id).all()
+    
+    # Query for note by note id passed in via path. 
     note = session.query(Note).filter_by(id=note_id).one()
 
-    #USER: Verify
+    # Verify that user owns note they are attempting to access.
     if note.user_id != login_session['user_id']:
         # Does not have permission to edit, view or delete
         flash('You do not have permission!')
         return redirect(url_for('showLogin'))
 
     if request.method == 'POST':
+        # Delete note from database.
         session.delete(note)
         session.commit()
 
+        # Notify user action successful.
         flash('Note "%s" succesfully deleted!' % note.title)
         return redirect(url_for('newNote', notebook_id=notebook_id))
 
     else:
-        notes = session.query(Note).filter_by(notebook_id=notebook_id).all()
+        # Show modal containing prompt to confirm delete action.
         return render_template('view_notes.html',
                                 notes=notes,
                                 notebook_id=notebook_id,
@@ -239,7 +261,6 @@ def deleteNote(notebook_id, note_id):
                                 show_modal=True)
 
 
-# User Helper Functions
 def createUser(login_session):
     newUser = User(name=login_session['username'], email=login_session[
                    'email'], picture=login_session['picture'])
