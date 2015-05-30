@@ -160,15 +160,14 @@ body {
 /*------------------------------------*\
     #PRIMARY-TOOLBAR-STYLES
 \*------------------------------------*/
+.page-notebooks {
+    background: #fefefe;
+}
+
 .notebooks-header {
-/*    position: fixed;
-    top: 0;
-    left: 0;
-    right: 0;*/
     padding: 1px 10px;
     background: #2196f3;
 }
-
 
 .primary-toolbar {
     width: 100%;
@@ -184,10 +183,9 @@ body {
 
 .primary-toolbar-flash,
 .secondary-toolbar-flash {
-    color: #651FFF;
+    color: #fff;
     font-weight: normal;
 }
-
 
 .heading-xl {
     margin-top: 8px;
@@ -204,101 +202,30 @@ body {
 
 
 /*------------------------------------*\
-    #PAGE-STYLES
-\*------------------------------------*/
-
-
-
-
-
-.notes-page .primary-toolbar {
-    left: 300px;
-    right: 0;
-    width: inherit;
-    height: 31px;
-}
-
-.notes-page .link-primary {
-    display: inline-block;
-    padding-top: 4px;
-}
-
-
-
-
-
-
-
-/*------------------------------------*\
-    #VIEW-NOTES-STYLES
-\*------------------------------------*/
-
-.sidebar {
-    position: absolute;
-    top: 0px;
-    left: 0;
-    width: 300px;
-    background: #673AB7;
-    box-shadow: 0 2px 5px rgba(0,0,0,0.26);
-    z-index: 2;
-}
-
-.sidebar-heading {
-    margin: 10px 15px;
-    color: #fff;
-}
-
-.sidebar-heading a {
-    color: #fff;
-    text-decoration: none;
-}
-.sidebar-items {
-    list-style: none;
-    margin: 0;
-    padding: 0;
-}
-
-.sidebar-item {
-    
-    color: #fff;
-    cursor: pointer;
-}
-
-.sidebar-item:hover {
-    background: #9575CD;
-}
-
-.sidebar-item a {
-    text-decoration: none;
-    color: #fff;
-    display: inline-block;
-
-    width: 100%;
-    padding: 15px;
-}
-
-
-
-/*------------------------------------*\
     #VIEW-NOTEBOOKS-STYLES
 \*------------------------------------*/
+
+.notebooks {
+    margin-top: 30px;
+}
+
+.notebook-list {
+    margin: 0;
+    list-style: none;
+}
+.notebook-list li {
+    display: inline-block;
+    margin: 5px 5px 15px;
+}
 
 .card {
     position: relative;
     display: inline-block;
     height: 250px;
-    width: 225px;
-    margin: 10px;
-    -webkit-border-radius: 3px;
+    width: 330px;
+    background: #fff;
     border-radius: 3px;
-    -webkit-box-sizing: border-box;
-    box-sizing: border-box;
-    background-color: #fff;
-    border: 1px solid #d8d8d8;
-    border-bottom-width: 2px;
-    border-top-width: 0;
-    vertical-align: top;
-    cursor: pointer;
+    box-shadow: 0px 2px 5px 0px rgba(0,0,0,0.16),0px 2px 5px 0px rgba(0,0,0,0.23);
 }
 
 .card:hover {
@@ -310,8 +237,11 @@ body {
 }
 
 .card-title {
-    margin-top: 35px;
-    color: #444;
+    margin-top: 5px;
+    padding-top: 25px;
+    color: #222;
+    font-weight: 300;
+    border-top: 1px solid #ccc;
 }
 
 .form-nb-delete {
@@ -328,6 +258,16 @@ body {
     right: 80px;
     font-size: 16px;
     padding: 5px 10px;
+}
+
+/*------------------------------------*\
+    #HELPER-STYLES
+\*------------------------------------*/
+
+.fa-book,
+.fa-plus-circle {
+    padding: 50px 50px 30px;
+    color: #868686;
 }
 
 /*------------------------------------*\
@@ -364,6 +304,83 @@ body {
     border-radius: 2px;
     width: 90px;
 }
+
+
+
+
+
+/*------------------------------------*\
+    #PAGE-STYLES
+\*------------------------------------*/
+
+.notes-page .primary-toolbar {
+    left: 300px;
+    right: 0;
+    width: inherit;
+    height: 31px;
+}
+
+.notes-page .link-primary {
+    display: inline-block;
+    padding-top: 4px;
+}
+
+
+
+
+
+
+/*------------------------------------*\
+    #VIEW-NOTES-STYLES
+\*------------------------------------*/
+
+.sidebar {
+    position: absolute;
+    top: 0px;
+    left: 0;
+    width: 300px;
+    background: #673AB7;
+    box-shadow: 0 2px 5px rgba(0,0,0,0.26);
+    z-index: 2;
+}
+
+.sidebar-heading {
+    margin: 10px 15px;
+    color: #fff;
+}
+
+.sidebar-heading a {
+    color: #fff;
+    text-decoration: none;
+}
+
+.sidebar-items {
+    list-style: none;
+    margin: 0;
+    padding: 0;
+}
+
+.sidebar-item {
+    
+    color: #fff;
+    cursor: pointer;
+}
+
+.sidebar-item:hover {
+    background: #9575CD;
+}
+
+.sidebar-item a {
+    text-decoration: none;
+    color: #fff;
+    display: inline-block;
+
+    width: 100%;
+    padding: 15px;
+}
+
+
+
 
 
 
@@ -479,14 +496,6 @@ body {
 
 
 
-/*------------------------------------*\
-    #HELPER-STYLES
-\*------------------------------------*/
-
-.fa-book {
-    padding-top: 50px;
-    color: #aaa;
-}
 
 
 /*------------------------------------*\
@@ -508,7 +517,7 @@ body {
     text-decoration: underline;
 }
 .link-invert {
-    color: #651FFF;
+    color: #1565C0;
 }
 
 .primary-toolbar.void {
@@ -541,7 +550,7 @@ body {
 .btn-default {
     background-color: transparent;
     border: none;
-    color: #651FFF;
+    color: #1565C0;
     text-decoration: none;
 }
 

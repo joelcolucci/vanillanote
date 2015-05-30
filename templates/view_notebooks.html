@@ -3,21 +3,42 @@
 
 
 <div class="notebooks text-center">
+    <ul class="notebook-list">
+
     {% for notebook in notebooks %}
-        <div class="card">
-            <a href="{{url_for('newNote', notebook_id=notebook.id)}}">
-                <i class="fa fa-book fa-5x"></i>
-                <h2 class="card-title">{{notebook.name}}</h2>
-            </a>
-            <a href="{{url_for('editNotebook', notebook_id=notebook.id)}}" class="link-primary link-invert notebook-edit">edit</a>
-            <form action="{{url_for('deleteNotebook', notebook_id=notebook.id)}}" method="POST" class="form-nb-delete">
-                <input type="submit" value="delete" class="clear-input btn-default">
-            </form>
-        </div>
+
+        <li>
+            <div class="card">
+                <div class="card-content">
+                    <a href="{{url_for('newNote', notebook_id=notebook.id)}}">
+                        <i class="fa fa-book fa-4x"></i>
+                    </a>
+                    <h2 class="card-title">{{ notebook.name}}</h2>
+                </div>
+                <div class="card-content">
+                    <a href="{{url_for('editNotebook', notebook_id=notebook.id)}}" class="link-primary link-invert notebook-edit">edit</a>
+
+                    <form action="{{url_for('deleteNotebook', notebook_id=notebook.id)}}" method="POST" class="form-nb-delete">
+                        <input type="submit" value="delete" class="clear-input btn-default">
+                    </form>
+                </div>
+            </div>
+        </li>
+
     {% endfor %}
 
+        <li>
+            <div class="card">
+                <div class="card-content">
+                    <a href="{{url_for('newNotebook')}}">
+                        <i class="fa fa-plus-circle fa-4x"></i>
+                    </a>
+                    <h2 class="card-title">Add new notebook!</h2>
+                </div>
+            </div>
+        </li>
+    </ul>
 </div>
 
-<div class="btn-arrow active"><a href="{{url_for('newNotebook')}}">+</a></div>
 
 {% endblock %}
