@@ -8,6 +8,7 @@ Program: Full Stack Web Developer Nanodegree
 Project #3
 
 Supporting course(s):
+
 [Full Stack Foundations](https://www.udacity.com/course/viewer#!/c-ud088)
 
 [Authentication & Authorization: OAuth](https://www.udacity.com/course/viewer#!/c-ud330)
@@ -20,6 +21,7 @@ This project implements the idea of a "catolog of items" in the form of a note t
 
 #####Equivalencies
 Category = Notebook
+
 Items = Notes
 
 #####Currently Deployed on Heroku
