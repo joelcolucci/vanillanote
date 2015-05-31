@@ -25,7 +25,7 @@ Category = Notebook
 Items = Notes
 
 #####Currently Deployed on Heroku
-Project deployed: vanillanote.herokuapp.com
+Project deployed: [vanillanote.herokuapp.com](vanillanote.herokuapp.com)
 
 Note: Changes are required to app.py in order to run as a local Flask app.
 
