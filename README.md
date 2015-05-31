@@ -17,7 +17,7 @@ Supporting course(s):
 You will develop an application that provides a list of items within a variety of categories as well as provide a user registration and authentication system. Registered users will have the ability to post, edit and delete their own items.
 
 ###Attention: Please Note
-This project implements the idea of a "catolog of items" in the form of a note taking application. Instead of a list of categories with items within each category, a user has a list of notebooks with a list of notes within each notebook.
+This project implements the idea of a "catalog of items" in the form of a note taking application. Instead of a list of categories with items within each category, a user has a list of notebooks with a list of notes within each notebook.
 
 #####Equivalencies
 Category = Notebook
